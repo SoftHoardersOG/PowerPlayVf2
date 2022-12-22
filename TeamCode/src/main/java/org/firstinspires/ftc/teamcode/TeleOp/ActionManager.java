@@ -23,6 +23,7 @@ public class ActionManager {
         turretMovment();
         slideHigh();
         slideMid();
+        maxLenght();
     }
 
     public static void collectPose() {
@@ -37,18 +38,19 @@ public class ActionManager {
     public static void collectClaw() {
         if (gamepad1.cross) {
             ActionDelayer.delay(0, Intake::close);
-            ActionDelayer.delay(200, Intake::transfer);
+            ActionDelayer.delay(200, Intake::idle);
         }
     }
 
     public static void transfer() {
         if (gamepad1.square) {
             ActionDelayer.delay(0, Intake::close);
+            ActionDelayer.delay(100, Intake::neutralSlides);
             ActionDelayer.delay(100, Intake::transfer);
-            ActionDelayer.delay(750, Intake::open);
-            ActionDelayer.delay(900, Intake::idle);
-            ActionDelayer.delay(950, Place::place);
-            ActionDelayer.delay(1100, Place::close);
+            ActionDelayer.delay(580, Intake::open);
+            ActionDelayer.delay(730, Intake::idle);
+            ActionDelayer.delay(730, Place::place);
+            ActionDelayer.delay(930, Place::close);
 
         }
     }
@@ -56,6 +58,7 @@ public class ActionManager {
     public static void placeAndReturn() {
         if (gamepad1.triangle) {
             Intake.collect();
+            ActionDelayer.delay(0,Place::release);
             ActionDelayer.delay(0, Place::open);
             ActionDelayer.delay(100, Place::transfer);
             ActionDelayer.delay(200, ()->{
@@ -87,6 +90,16 @@ public class ActionManager {
     public static void slideMid(){
         if (gamepad2.square){
             ActionDelayer.delay(0, Place::mid);
+        }
+    }
+    public static void maxLenght(){
+        if (gamepad1.dpad_up){
+            ActionDelayer.delay(0,Intake::goToMax);
+
+        }
+        if(gamepad1.dpad_down){
+            ActionDelayer.delay(0,Intake::idle);
+            ActionDelayer.delay(0,Intake::neutralSlides);
         }
     }
 }

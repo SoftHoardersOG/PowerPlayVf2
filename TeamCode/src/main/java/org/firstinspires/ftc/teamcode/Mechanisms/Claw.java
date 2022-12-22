@@ -13,11 +13,7 @@ public class Claw {
         this.servo = servo;
     }
 
-    public void open() {
-        servo.setPosition(opened);
-    }
+    public void open() {servo.setPosition(opened);}
 
-    public void close() {
-        servo.setPosition(closed);
-    }
+    public void close() {servo.setPosition(closed);}
 }

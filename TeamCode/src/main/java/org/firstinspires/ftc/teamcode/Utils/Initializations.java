@@ -6,11 +6,13 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Hardware.Hardware;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.TeleOp.Movement;
+import org.firstinspires.ftc.teamcode.TeleOp.TelemetryManager;
 
 public class Initializations {
     public static void initTeleop(HardwareMap hardwareMap, SampleMecanumDrive drive, Telemetry telemetry){
         Hardware.init(hardwareMap, telemetry);
         Movement.init(drive);
         Hardware.configure();
+        TelemetryManager.init();
     }
 }

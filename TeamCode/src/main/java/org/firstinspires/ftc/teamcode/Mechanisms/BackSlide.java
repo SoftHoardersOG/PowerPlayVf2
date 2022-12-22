@@ -4,18 +4,13 @@ import org.firstinspires.ftc.teamcode.Hardware.Hardware;
 
 public class BackSlide {
     private final int lowPosition = 0;
-    private final int midPosition = -249;
+    private final int midPosition = -210;
     private final int highPosition = -510;
 
-    public void goToHigh(){
-        Hardware.backSlide.setTargetPosition(highPosition);
+    public void goToHigh(){Hardware.backSlide.setTargetPosition(highPosition);
     }
 
-    public void goToMid(){
-        Hardware.backSlide.setTargetPosition(midPosition);
-    }
+    public void goToMid(){Hardware.backSlide.setTargetPosition(midPosition);}
 
-    public void goToLow(){
-        Hardware.backSlide.setTargetPosition(lowPosition);
-    }
+    public void goToLow(){Hardware.backSlide.setTargetPosition(lowPosition);}
 }
