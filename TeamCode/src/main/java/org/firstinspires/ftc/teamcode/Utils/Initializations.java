@@ -12,7 +12,12 @@ public class Initializations {
     public static void initTeleop(HardwareMap hardwareMap, SampleMecanumDrive drive, Telemetry telemetry){
         Hardware.init(hardwareMap, telemetry);
         Movement.init(drive);
-        Hardware.configure();
+        Hardware.configureTeleop();
+        TelemetryManager.init();
+    }
+    public static void initAuto(HardwareMap hardwareMap, Telemetry telemetry){
+        Hardware.init(hardwareMap, telemetry);
+        Hardware.configureAuto();
         TelemetryManager.init();
     }
 }

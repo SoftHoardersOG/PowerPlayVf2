@@ -19,13 +19,13 @@ public class Movement {
                 new Pose2d(
                         -gamepad1.right_stick_y / limitSpeed,
                         -gamepad1.right_stick_x / limitSpeed,
-                        -gamepad1.left_stick_x / 2 / limitSpeed
+                        -gamepad1.left_stick_x / limitSpeed
                 )
         );
         drive.update();
     }
 
     private static void setLimitSpeed(Gamepad gamepad) {
-        limitSpeed = (gamepad.right_bumper ? 4 : 1);
+        limitSpeed = (gamepad.right_trigger>0.01 ? 3 : 1);
     }
 }

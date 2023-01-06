@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Place {
-    private static final Claw claw = new Claw(Hardware.backClaw, 0.75, 0.70);
-    private static final Arm arm = new Arm(Hardware.backClawAngle, 0.94, 0.23, 0,0.20);
-    private static final Position turret = new Position(Hardware.turret, new ArrayList<Double>(Arrays.asList(0.88, 0.25, 0.60, 0.54)));
+    private static final Claw claw = new Claw(Hardware.backClaw, 0.77, 0.71);
+    private static final Arm arm = new Arm(Hardware.backClawAngle, 0.94, 0.23, 0.15,0.20);
+    private static final Position turret = new Position(Hardware.turret, new ArrayList<Double>(Arrays.asList(0.93, 0.24, 0.65, 0.59)));
     private static final BackSlide slide = new BackSlide();
 
     public static void close(){claw.close();}
@@ -16,6 +16,8 @@ public class Place {
     public static void open(){claw.open();}
 
     public static void transfer(){arm.transfer();}
+
+    public static void lowJunkPoz(){arm.idle();}
 
     public static void place(){arm.collectOrPlace();}
 
@@ -28,5 +30,6 @@ public class Place {
     public static void mid(){slide.goToMid();}
 
     public static void high(){slide.goToHigh();}
+    public static void highAuto(){slide.goToHighAuto();}
 
 }

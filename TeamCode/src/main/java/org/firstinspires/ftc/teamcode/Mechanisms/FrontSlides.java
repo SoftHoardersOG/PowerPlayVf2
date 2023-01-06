@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Mechanisms;
 import org.firstinspires.ftc.teamcode.Hardware.Hardware;
 
 
-public class frontSlides {
+public class FrontSlides {
 
     private final int maxPositionRight =-470;
     private final int maxPositionLeft =470;

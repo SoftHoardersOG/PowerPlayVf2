@@ -4,7 +4,6 @@ import static org.firstinspires.ftc.teamcode.Hardware.HardwareUtils.*;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.PwmControl;
@@ -13,9 +12,9 @@ import com.qualcomm.robotcore.hardware.ServoImplEx;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.Hardware.revex.ExpansionHubEx;
 import org.firstinspires.ftc.teamcode.Mechanisms.Intake;
 import org.firstinspires.ftc.teamcode.Mechanisms.Place;
+import org.firstinspires.ftc.teamcode.Utils.Sleep;
 
 
 public class Hardware {
@@ -53,7 +52,41 @@ public class Hardware {
         telemetry.addLine("Hardware mapping done!");
     }
 
-    public static void configure(){
+    public static void configureTeleop(){
+        backSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backSlide.setPower(0.8);
+        rightSlide.setPower(0.8);
+        leftSlide.setPower(0.8);
+        backSlide.setTargetPosition(0);
+        rightSlide.setTargetPosition(0);
+        leftSlide.setTargetPosition(0);
+        MotorConfigurationType motorConfigurationType = backSlide.getMotorType().clone();
+        motorConfigurationType.setGearing(5.2);
+        motorConfigurationType.setTicksPerRev(145.1);
+        motorConfigurationType.setMaxRPM(1150);
+        backSlide.setMotorType(motorConfigurationType);
+        backSlide.setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, new PIDFCoefficients(8, 0,0,0));
+        backSlide.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(30, 0,10,0));
+        ((ServoImplEx)(frontClawAngle)).setPwmRange(new PwmControl.PwmRange(500, 2500));
+        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        initPositions();
+
+        telemetry.addLine("Hardware configuring done!");
+    }
+
+    public static void configureAuto(){
         backSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -77,13 +110,23 @@ public class Hardware {
         backSlide.setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, new PIDFCoefficients(8, 0,0,0));
         backSlide.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(30, 0,10,0));
         ((ServoImplEx)(frontClawAngle)).setPwmRange(new PwmControl.PwmRange(500, 2500));
+        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        initPositions();
+
+        telemetry.addLine("Hardware configuring done!");
+    }
+
+    private static void initPositions(){
         Intake.open();
         Intake.idle();
-        long currenttime = System.currentTimeMillis();
-        while (System.currentTimeMillis()-currenttime<300);
+        Sleep.ms(500);
         Place.transfer();
         Place.open();
         Place.turretToPosition(2);
-        telemetry.addLine("Hardware configuring done!");
+        Intake.liftToPosition(0);
     }
+
 }
