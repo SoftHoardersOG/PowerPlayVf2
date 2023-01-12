@@ -49,6 +49,7 @@ public class FiveConeRightTrajectories {
                         SampleMecanumDrive.getAccelerationConstraint(50))
                 .build();
     }
+
     public static Trajectory ParkTrajectory2(Pose2d pose2d) {
         return drive.trajectoryBuilder(pose2d)
                 .forward(10,

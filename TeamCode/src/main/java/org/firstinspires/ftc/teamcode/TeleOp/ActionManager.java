@@ -49,7 +49,6 @@ public class ActionManager {
         if (gamepad1.circle) {
             ActionDelayer.delay(0, Intake::collect);
             ActionDelayer.delay(0, Intake::open);
-
         }
     }
 
@@ -79,7 +78,7 @@ public class ActionManager {
             ActionDelayer.delay(730, Intake::idle);
 
             ActionDelayer.delay(730, Place::place);
-            ActionDelayer.delay(930, Place::close);
+            ActionDelayer.delay(1030, Place::close);
             ActionDelayer.delay(930, ()->{
                 Intake.liftToPosition(0);
                 Intake.currentPosition=0;

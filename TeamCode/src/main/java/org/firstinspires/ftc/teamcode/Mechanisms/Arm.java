@@ -19,8 +19,7 @@ public class Arm {
 
     public void finalRelease(){servo.setPosition(finalRelease);}
 
-    public void transfer() {servo.setPosition(transfer);
-    }
+    public void transfer() {servo.setPosition(transfer);}
 
     public void collectOrPlace() {servo.setPosition(collectOrPlace);}
 

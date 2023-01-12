@@ -49,7 +49,6 @@ public class MainAuto extends LinearOpMode {
                 }
                 Hardware.telemetry.addData("----AUTO LASTED----", duration);
             }
-
             Hardware.telemetry.update();
         }
         linearAuto.interrupt();

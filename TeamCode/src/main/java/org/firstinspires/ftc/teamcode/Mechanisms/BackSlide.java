@@ -5,10 +5,10 @@ import org.firstinspires.ftc.teamcode.Hardware.Hardware;
 public class BackSlide {
     private final int lowPosition = 0;
     private final int midPosition = -215;
-    private final int highPosition = -515;
+    private final int highPosition = -480;
 
     public void goToHigh(){Hardware.backSlide.setTargetPosition(highPosition);}
-    public void goToHighAuto(){Hardware.backSlide.setTargetPosition(highPosition-15);}
+    public void goToHighAuto(){Hardware.backSlide.setTargetPosition(-505-25);}
 
     public void goToMid(){Hardware.backSlide.setTargetPosition(midPosition);}
 

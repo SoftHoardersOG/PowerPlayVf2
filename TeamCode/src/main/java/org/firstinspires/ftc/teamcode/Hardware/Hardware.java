@@ -42,13 +42,13 @@ public class Hardware {
         backRight = getDc("backRight");
         leftSlide =getDc("leftSlide");
         rightSlide= getDc("rightSlide");
-        frontClaw = HardwareUtils.getServo("frontClaw");
-        backClaw = HardwareUtils.getServo("backClaw");
-        frontClawAngle = HardwareUtils.getServo("frontClawAngle");
-        backClawAngle = HardwareUtils.getServo("backClawAngle");
-        frontClawLift = HardwareUtils.getServo("frontClawLift");
-        backSlide = HardwareUtils.getDcEx("backSlide");
-        turret = HardwareUtils.getServo("turret");
+        frontClaw = getServo("frontClaw");
+        backClaw = getServo("backClaw");
+        frontClawAngle = getServo("frontClawAngle");
+        backClawAngle = getServo("backClawAngle");
+        frontClawLift = getServo("frontClawLift");
+        backSlide = getDcEx("backSlide");
+        turret = getServo("turret");
         telemetry.addLine("Hardware mapping done!");
     }
 
