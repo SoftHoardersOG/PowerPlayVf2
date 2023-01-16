@@ -31,5 +31,6 @@ public class Place {
 
     public static void high(){slide.goToHigh();}
     public static void highAuto(){slide.goToHighAuto();}
+    public static void highAutoLeft(){slide.goToHighAutoLeft();}
 
 }

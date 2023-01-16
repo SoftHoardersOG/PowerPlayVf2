@@ -69,16 +69,16 @@ public class ActionManager {
     public static void transfer() {
         if (gamepad1.square) {
             ActionDelayer.delay(0, Intake::close);
-            ActionDelayer.delay(100, Intake::neutralSlides);
-            ActionDelayer.delay(100, Intake::transfer);
+            ActionDelayer.delay(120, Intake::neutralSlides);
+            ActionDelayer.delay(120, Intake::transfer);
             ActionDelayer.delay(100, ()->{
                 Intake.liftToPosition(5);
             });
-            ActionDelayer.delay(600, Intake::open);
-            ActionDelayer.delay(730, Intake::idle);
+            ActionDelayer.delay(570, Intake::open);
+            ActionDelayer.delay(670, Intake::idle);
 
-            ActionDelayer.delay(730, Place::place);
-            ActionDelayer.delay(1030, Place::close);
+            ActionDelayer.delay(660, Place::place);
+            ActionDelayer.delay(920, Place::close);
             ActionDelayer.delay(930, ()->{
                 Intake.liftToPosition(0);
                 Intake.currentPosition=0;

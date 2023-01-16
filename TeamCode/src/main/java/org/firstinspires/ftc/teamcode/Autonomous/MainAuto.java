@@ -31,11 +31,14 @@ public class MainAuto extends LinearOpMode {
         ImageDetection.initialize();
 
         Thread linearAuto = new Thread(SelectAuto.getAutoFromEnum(sampleMecanumDrive, this));
-
+        if (PoseStorage.autoCase.toString().contains("Right")){
+            sampleMecanumDrive.setPoseEstimate(new Pose2d(35.75, -63.33, Math.toRadians(270)));
+        }
+        else{
+            sampleMecanumDrive.setPoseEstimate(new Pose2d(-35.75, -63.33, Math.toRadians(270)));
+        }
 
         waitForStart();
-
-        sampleMecanumDrive.setPoseEstimate(new Pose2d(35.75, -63.33, Math.toRadians(270)));
 
         linearAuto.start();
         firstTime = System.currentTimeMillis();
