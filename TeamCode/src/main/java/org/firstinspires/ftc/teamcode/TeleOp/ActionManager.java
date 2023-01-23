@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 
+import org.firstinspires.ftc.teamcode.Hardware.Hardware;
 import org.firstinspires.ftc.teamcode.Mechanisms.Intake;
 import org.firstinspires.ftc.teamcode.Mechanisms.Place;
 import org.firstinspires.ftc.teamcode.Utils.ActionDelayer;
@@ -26,7 +27,7 @@ public class ActionManager {
         turretMovement();
         slideHigh();
         slideMid();
-        maxLength();
+        frontSlides();
         lowPlace();
         groundPlace();
         raiseArm();
@@ -49,6 +50,9 @@ public class ActionManager {
         if (gamepad1.circle) {
             ActionDelayer.delay(0, Intake::collect);
             ActionDelayer.delay(0, Intake::open);
+        }
+        if (gamepad1.touchpad){
+            Hardware.frontClawAngle.setPosition(0.67);
         }
     }
 
@@ -78,7 +82,7 @@ public class ActionManager {
             ActionDelayer.delay(670, Intake::idle);
 
             ActionDelayer.delay(660, Place::place);
-            ActionDelayer.delay(920, Place::close);
+            ActionDelayer.delay(800, Place::close);
             ActionDelayer.delay(930, ()->{
                 Intake.liftToPosition(0);
                 Intake.currentPosition=0;
@@ -123,7 +127,7 @@ public class ActionManager {
             ActionDelayer.delay(0,Place::place);
         }
     }
-    public static void maxLength(){
+    public static void frontSlides(){
         if (gamepad1.dpad_up){
             ActionDelayer.delay(0,Intake::goToMax);
 

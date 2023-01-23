@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Hardware;
 
 import static org.firstinspires.ftc.teamcode.Hardware.HardwareUtils.*;
 
+import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -32,6 +33,7 @@ public class Hardware {
     public static Telemetry telemetry;
     public static DcMotor leftSlide;
     public static DcMotor rightSlide;
+    public static RevColorSensorV3 sensor;
 
     public static void init(HardwareMap hardwareMap, Telemetry _telemetry) {
         HardwareUtils.hardwareMap = hardwareMap;
@@ -49,10 +51,11 @@ public class Hardware {
         frontClawLift = getServo("frontClawLift");
         backSlide = getDcEx("backSlide");
         turret = getServo("turret");
+        //sensor = getColorSensor("sensor");
         telemetry.addLine("Hardware mapping done!");
     }
 
-    public static void configureTeleop(){
+    public static void configureTeleOp(){
         backSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -81,6 +84,7 @@ public class Hardware {
         backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         frontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         initPositions();
 
         telemetry.addLine("Hardware configuring done!");

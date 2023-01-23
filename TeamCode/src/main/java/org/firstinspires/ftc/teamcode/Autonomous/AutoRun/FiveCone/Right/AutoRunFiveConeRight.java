@@ -44,8 +44,10 @@ public class AutoRunFiveConeRight implements Runnable {
 
         ImageDetection.camera.stopStreaming();
         intake(sampleMecanumDrive);
-        Place.highAuto();
-        Hardware.turret.setPosition(0.35);
+        Hardware.rightSlide.setTargetPosition(-20);
+        Hardware.leftSlide.setTargetPosition(20);
+        Place.highAutoRight();
+        Hardware.turret.setPosition(0.355);
         Place.place();
         opMode.sleep(100);
         Place.close();
@@ -57,9 +59,19 @@ public class AutoRunFiveConeRight implements Runnable {
         Place.turretToPosition(2);
         Intake.currentPosition=5;
         for (int i=1;i<=5;i++){
+            if (i>1){
+                Hardware.rightSlide.setTargetPosition(-30);
+                Hardware.leftSlide.setTargetPosition(30);
+            }
             Intake.collect();
             Intake.changeLiftToPosition(-1);
-            opMode.sleep(350);
+            if (i<5) {
+                Hardware.frontClawAngle.setPosition(0.63);
+            }
+            if (i==1){
+                Hardware.frontClawAngle.setPosition(0.59);
+            }
+            opMode.sleep(350+i*10);
             Intake.close();
             opMode.sleep(100);
             Intake.neutralSlides();
@@ -73,10 +85,10 @@ public class AutoRunFiveConeRight implements Runnable {
             }
             Intake.open();
             opMode.sleep(130);
-            Hardware.turret.setPosition(0.35);
+            Hardware.turret.setPosition(0.355);
             Intake.idle();
             Place.place();
-            Place.highAuto();
+            Place.highAutoRight();
             opMode.sleep(200);
             Place.close();
             opMode.sleep(440);

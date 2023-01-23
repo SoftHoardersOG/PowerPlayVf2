@@ -1,18 +1,10 @@
 package org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveCone.Right;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 
-import org.firstinspires.ftc.robotcore.internal.android.dx.command.Main;
-import org.firstinspires.ftc.teamcode.Autonomous.MainAuto;
-import org.firstinspires.ftc.teamcode.Autonomous.Utils.PoseStorage;
-import org.firstinspires.ftc.teamcode.Hardware.Hardware;
-import org.firstinspires.ftc.teamcode.Mechanisms.Intake;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.SampleMecanumDrive;
-
-import java.util.ArrayList;
 
 public class FiveConeRightTrajectories {
 
@@ -36,7 +28,7 @@ public class FiveConeRightTrajectories {
 
     public static Trajectory IntakeTrajectory2(Pose2d pose2d) {
         return drive.trajectoryBuilder(new Pose2d(pose2d.getX(), pose2d.getY(), 0))
-                .lineToLinearHeading(new Pose2d(51.5, -11.5, Math.toRadians(4)),
+                .lineToLinearHeading(new Pose2d(51.2, -11.5, Math.toRadians(4)),
                         SampleMecanumDrive.getVelocityConstraint(30, Math.toRadians(10), DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(30))
                 .build();

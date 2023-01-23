@@ -45,8 +45,10 @@ public class AutoRunFiveConeLeft implements Runnable {
         }
         ImageDetection.camera.stopStreaming();
         intake(sampleMecanumDrive);
+        Hardware.rightSlide.setTargetPosition(-20);
+        Hardware.leftSlide.setTargetPosition(20);
         Place.highAutoLeft();
-        Hardware.turret.setPosition(0.80);
+        Hardware.turret.setPosition(0.85);
         Place.place();
         opMode.sleep(100);
         Place.close();
@@ -67,17 +69,18 @@ public class AutoRunFiveConeLeft implements Runnable {
             Intake.transfer();
             Intake.liftToPosition(5);
             if (i==1) {
-                opMode.sleep(490);
+                opMode.sleep(470);
             }
             else{
-                opMode.sleep(530);
+                opMode.sleep(590);
             }
             Intake.open();
             opMode.sleep(130);
-            Hardware.turret.setPosition(0.80);
+            Hardware.turret.setPosition(0.85);
             Intake.idle();
-            Place.place();
             Place.highAutoLeft();
+            opMode.sleep(150);
+            Place.place();
             opMode.sleep(200);
             Place.close();
             opMode.sleep(440);

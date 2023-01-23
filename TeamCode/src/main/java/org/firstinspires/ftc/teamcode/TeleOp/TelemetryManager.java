@@ -6,6 +6,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.Hardware.Hardware;
 import org.firstinspires.ftc.teamcode.Mechanisms.Intake;
 
@@ -28,6 +29,7 @@ public class TelemetryManager {
         addTelemetry("leftSlide position",Hardware.leftSlide.getCurrentPosition());
         addTelemetry("backsSlide current RPM", Hardware.backSlide.getVelocity(AngleUnit.DEGREES)/6);
         addTelemetry("front lift current positon", Intake.currentPosition);
+        //addTelemetry("color sensor reading: ", Hardware.sensor.getDistance(DistanceUnit.CM));
         dashboard.sendTelemetryPacket(packet);
         telemetry.update();
     }

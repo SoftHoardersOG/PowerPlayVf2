@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Hardware;
 
+import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -21,6 +22,10 @@ public class HardwareUtils {
 
     public static Servo getServo(String name) {
         return hardwareMap.get(Servo.class, name);
+    }
+
+    public static RevColorSensorV3 getColorSensor(String name) {
+        return hardwareMap.get(RevColorSensorV3.class, name);
     }
 
     public static ExpansionHubEx getExpansionHub(String name){
