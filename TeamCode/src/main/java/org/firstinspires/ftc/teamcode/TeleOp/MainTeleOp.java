@@ -11,7 +11,7 @@ public class MainTeleOp extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Initializations.initTeleop(hardwareMap, drive, telemetry);
+        Initializations.initTeleOp(hardwareMap, drive, telemetry);
         waitForStart();
         while (opModeIsActive() && !isStopRequested()) {
             ActionManager.control(gamepad1, gamepad2);

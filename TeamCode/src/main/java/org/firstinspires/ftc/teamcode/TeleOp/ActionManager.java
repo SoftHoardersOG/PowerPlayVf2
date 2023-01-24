@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.Hardware.Hardware;
 import org.firstinspires.ftc.teamcode.Mechanisms.Intake;
 import org.firstinspires.ftc.teamcode.Mechanisms.Place;
@@ -32,24 +33,25 @@ public class ActionManager {
         groundPlace();
         raiseArm();
         frontLift();
+        testTransfer();
     }
     public static void lowPlace(){
         if(gamepad2.cross){
-            ActionDelayer.delay(0,Place::lowJunkPoz);
-            ActionDelayer.delay(0,Place::low);
+            ActionDelayer.time(0,Place::lowJunkPoz);
+            ActionDelayer.time(0,Place::low);
         }
     }
 
     public static void groundPlace(){
         if(gamepad1.dpad_left){
-            ActionDelayer.delay(0,Intake::collect);
+            ActionDelayer.time(0,Intake::collect);
         }
     }
 
     public static void collectPose() {
         if (gamepad1.circle) {
-            ActionDelayer.delay(0, Intake::collect);
-            ActionDelayer.delay(0, Intake::open);
+            ActionDelayer.time(0, Intake::collect);
+            ActionDelayer.time(0, Intake::open);
         }
         if (gamepad1.touchpad){
             Hardware.frontClawAngle.setPosition(0.67);
@@ -58,8 +60,8 @@ public class ActionManager {
 
     public static void collectClaw() {
         if (gamepad1.cross) {
-            ActionDelayer.delay(0, Intake::close);
-            ActionDelayer.delay(200, Intake::idle);
+            ActionDelayer.time(0, Intake::close);
+            ActionDelayer.time(200, Intake::idle);
         }
     }
 
@@ -72,18 +74,18 @@ public class ActionManager {
 
     public static void transfer() {
         if (gamepad1.square) {
-            ActionDelayer.delay(0, Intake::close);
-            ActionDelayer.delay(120, Intake::neutralSlides);
-            ActionDelayer.delay(120, Intake::transfer);
-            ActionDelayer.delay(100, ()->{
+            ActionDelayer.time(0, Intake::close);
+            ActionDelayer.time(120, Intake::neutralSlides);
+            ActionDelayer.time(120, Intake::transfer);
+            ActionDelayer.time(100, ()->{
                 Intake.liftToPosition(5);
             });
-            ActionDelayer.delay(570, Intake::open);
-            ActionDelayer.delay(670, Intake::idle);
+            ActionDelayer.time(570, Intake::open);
+            ActionDelayer.time(670, Intake::idle);
 
-            ActionDelayer.delay(660, Place::place);
-            ActionDelayer.delay(800, Place::close);
-            ActionDelayer.delay(930, ()->{
+            ActionDelayer.time(660, Place::place);
+            ActionDelayer.time(800, Place::close);
+            ActionDelayer.time(930, ()->{
                 Intake.liftToPosition(0);
                 Intake.currentPosition=0;
             });
@@ -93,9 +95,9 @@ public class ActionManager {
     public static void placeAndReturn() {
         if (gamepad1.triangle) {
             Intake.collect();
-            ActionDelayer.delay(0, Place::open);
-            ActionDelayer.delay(100, Place::transfer);
-            ActionDelayer.delay(200, ()->{
+            ActionDelayer.time(0, Place::open);
+            ActionDelayer.time(100, Place::transfer);
+            ActionDelayer.time(200, ()->{
                 Place.turretToPosition(2);
                 Place.low();
             });
@@ -116,25 +118,25 @@ public class ActionManager {
 
     public static void slideHigh(){
         if (gamepad2.triangle){
-            ActionDelayer.delay(0, Place::high);
-            ActionDelayer.delay(0,Place::place);
+            ActionDelayer.time(0, Place::high);
+            ActionDelayer.time(0,Place::place);
         }
     }
 
     public static void slideMid(){
         if (gamepad2.square){
-            ActionDelayer.delay(0, Place::mid);
-            ActionDelayer.delay(0,Place::place);
+            ActionDelayer.time(0, Place::mid);
+            ActionDelayer.time(0,Place::place);
         }
     }
     public static void frontSlides(){
         if (gamepad1.dpad_up){
-            ActionDelayer.delay(0,Intake::goToMax);
+            ActionDelayer.time(0,Intake::goToMax);
 
         }
         if(gamepad1.dpad_down){
-            ActionDelayer.delay(0,Intake::idle);
-            ActionDelayer.delay(0,Intake::neutralSlides);
+            ActionDelayer.time(0,Intake::idle);
+            ActionDelayer.time(0,Intake::neutralSlides);
         }
     }
 
@@ -144,6 +146,28 @@ public class ActionManager {
         }
         if (oneTapRB.onPress(gamepad1.right_bumper)){
             Intake.changeLiftToPosition(1);
+        }
+    }
+
+    public static void testTransfer(){
+        if (gamepad1.left_stick_button){
+            ActionDelayer.time(0, Intake::close);
+            ActionDelayer.time(120, Intake::neutralSlides);
+            ActionDelayer.time(120, Intake::transfer);
+            ActionDelayer.time(100, ()->{
+                Intake.liftToPosition(5);
+            });
+            ActionDelayer.condition(()-> Hardware.sensor.getDistance(DistanceUnit.CM)<3, ()->{
+                ActionDelayer.time(0, Intake::open);
+                ActionDelayer.time(120, Intake::idle);
+
+                ActionDelayer.time(100, Place::place);
+                ActionDelayer.time(230, Place::close);
+                ActionDelayer.time(360, ()->{
+                    Intake.liftToPosition(0);
+                    Intake.currentPosition=0;
+                });
+            });
         }
     }
 }

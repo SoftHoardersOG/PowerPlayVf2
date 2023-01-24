@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.TeleOp.Movement;
 import org.firstinspires.ftc.teamcode.TeleOp.TelemetryManager;
 
 public class Initializations {
-    public static void initTeleop(HardwareMap hardwareMap, SampleMecanumDrive drive, Telemetry telemetry){
+    public static void initTeleOp(HardwareMap hardwareMap, SampleMecanumDrive drive, Telemetry telemetry){
         Hardware.init(hardwareMap, telemetry);
         Movement.init(drive);
         Hardware.configureTeleOp();
