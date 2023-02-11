@@ -16,6 +16,10 @@ public class ActionManager {
 
     private static final OneTap oneTapLB = new OneTap();
     private static final OneTap oneTapRB = new OneTap();
+    private static final OneTap oneTapChangeTransfer = new OneTap();
+    private static final OneTap oneTapChangeCycle = new OneTap();
+    public static boolean transfer = true;
+    public static boolean cycling = true;
 
     public static void control(Gamepad _gamepad1, Gamepad _gamepad2) {
         gamepad1 = _gamepad1;
@@ -28,13 +32,22 @@ public class ActionManager {
         turretMovement();
         slideHigh();
         slideMid();
-        frontSlides();
+        frontSlidesMax();
         lowPlace();
         groundPlace();
         raiseArm();
         frontLift();
-        testTransfer();
+        changeTransfer();
+        changeCycle();
+        checkCollectPose();
     }
+
+    public static void checkCollectPose(){
+        if (Intake.isArmCollect()&&Intake.areSlidesExtended()){
+            Intake.higherCollectPose();
+        }
+    }
+
     public static void lowPlace(){
         if(gamepad2.cross){
             ActionDelayer.time(0,Place::lowJunkPoz);
@@ -52,9 +65,6 @@ public class ActionManager {
         if (gamepad1.circle) {
             ActionDelayer.time(0, Intake::collect);
             ActionDelayer.time(0, Intake::open);
-        }
-        if (gamepad1.touchpad){
-            Hardware.frontClawAngle.setPosition(0.67);
         }
     }
 
@@ -74,21 +84,36 @@ public class ActionManager {
 
     public static void transfer() {
         if (gamepad1.square) {
-            ActionDelayer.time(0, Intake::close);
-            ActionDelayer.time(120, Intake::neutralSlides);
-            ActionDelayer.time(120, Intake::transfer);
-            ActionDelayer.time(100, ()->{
-                Intake.liftToPosition(5);
-            });
-            ActionDelayer.time(570, Intake::open);
-            ActionDelayer.time(670, Intake::idle);
-
-            ActionDelayer.time(660, Place::place);
-            ActionDelayer.time(800, Place::close);
-            ActionDelayer.time(930, ()->{
-                Intake.liftToPosition(0);
-                Intake.currentPosition=0;
-            });
+            if (transfer) {
+                ActionDelayer.time(0, Intake::close);
+                ActionDelayer.time(150, Intake::neutralSlides);
+                ActionDelayer.time(150, Intake::idle);
+                ActionDelayer.time(200, Intake::idle);
+                ActionDelayer.time(150, ()-> ActionDelayer.condition(()->(Hardware.leftSlide.getCurrentPosition()<50||Hardware.rightSlide.getCurrentPosition()>-50)&&Hardware.potentiometer.getVoltage()<1.2,()->{
+                    ActionDelayer.time(0, Intake::transfer);
+                    ActionDelayer.time(50, Intake::open);
+                    ActionDelayer.time(150, Intake::idle);
+                    ActionDelayer.time(160, Place::place);
+                    ActionDelayer.time(350, Place::close);
+                }));
+            }
+            else{
+                ActionDelayer.time(0, Intake::close);
+                ActionDelayer.time(150, Intake::neutralSlides);
+                ActionDelayer.time(150, Intake::idle);
+                ActionDelayer.time(150, ()-> ActionDelayer.condition(()->Hardware.leftSlide.getCurrentPosition()<50||Hardware.rightSlide.getCurrentPosition()>-50, ()->{
+                    ActionDelayer.condition(()-> Hardware.sensor.getDistance(DistanceUnit.CM)<3, ()->{
+                        ActionDelayer.time(0, Intake::open);
+                        ActionDelayer.time(120, Intake::idle);
+                        ActionDelayer.time(100, Place::place);
+                        ActionDelayer.time(230, Place::close);
+                        ActionDelayer.time(360, ()->{
+                            Intake.liftToPosition(0);
+                            Intake.currentPosition=0;
+                        });
+                    });
+                }));
+            }
         }
     }
 
@@ -96,11 +121,11 @@ public class ActionManager {
         if (gamepad1.triangle) {
             Intake.collect();
             ActionDelayer.time(0, Place::open);
-            ActionDelayer.time(100, Place::transfer);
-            ActionDelayer.time(200, ()->{
+            ActionDelayer.time(300, ()->{
                 Place.turretToPosition(2);
                 Place.low();
             });
+            ActionDelayer.time(150, Place::transfer);
         }
     }
 
@@ -129,9 +154,9 @@ public class ActionManager {
             ActionDelayer.time(0,Place::place);
         }
     }
-    public static void frontSlides(){
+    public static void frontSlidesMax(){
         if (gamepad1.dpad_up){
-            ActionDelayer.time(0,Intake::goToMax);
+            ActionDelayer.time(0,Intake::frontSlideMax);
 
         }
         if(gamepad1.dpad_down){
@@ -149,25 +174,14 @@ public class ActionManager {
         }
     }
 
-    public static void testTransfer(){
-        if (gamepad1.left_stick_button){
-            ActionDelayer.time(0, Intake::close);
-            ActionDelayer.time(120, Intake::neutralSlides);
-            ActionDelayer.time(120, Intake::transfer);
-            ActionDelayer.time(100, ()->{
-                Intake.liftToPosition(5);
-            });
-            ActionDelayer.condition(()-> Hardware.sensor.getDistance(DistanceUnit.CM)<3, ()->{
-                ActionDelayer.time(0, Intake::open);
-                ActionDelayer.time(120, Intake::idle);
-
-                ActionDelayer.time(100, Place::place);
-                ActionDelayer.time(230, Place::close);
-                ActionDelayer.time(360, ()->{
-                    Intake.liftToPosition(0);
-                    Intake.currentPosition=0;
-                });
-            });
+    public static void changeTransfer(){
+        if (oneTapChangeTransfer.onPress(gamepad1.touchpad)){
+            transfer = !transfer;
+        }
+    }
+    public static void changeCycle(){
+        if (oneTapChangeCycle.onPress(gamepad2.touchpad)){
+            cycling = !cycling;
         }
     }
 }

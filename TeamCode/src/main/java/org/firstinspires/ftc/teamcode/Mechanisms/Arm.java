@@ -23,6 +23,13 @@ public class Arm {
 
     public void collectOrPlace() {servo.setPosition(collectOrPlace);}
 
-    public void idle() {servo.setPosition(idle);
+    public void idle() {servo.setPosition(idle);}
+
+    public double getCollectOrPlacePose(){
+        return collectOrPlace;
+    }
+
+    public double getFinalRelease(){
+        return finalRelease;
     }
 }

@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public class Intake {
     private static final Claw claw = new Claw(Hardware.frontClaw, 0.15, 0.35);
-    private static final Arm arm = new Arm(Hardware.frontClawAngle, 0, 0.71-0.05, 0.15-0.05,0.60);
+    private static final Arm arm = new Arm(Hardware.frontClawAngle, 0.01, 0.71, 0.15,0.68);
     private static final Position lift = new Position(Hardware.frontClawLift , new ArrayList<Double>(Arrays.asList(0.06, 0.18, 0.27, 0.4, 0.4, 0.08)));
     private static final FrontSlides slide = new FrontSlides();
     public static int currentPosition=0;
@@ -18,7 +18,7 @@ public class Intake {
 
     public static void transfer(){arm.transfer();}
 
-    public static void goToMax(){slide.goToMax();}
+    public static void frontSlideMax(){slide.goToMax();}
 
     public static void neutralSlides(){slide.neutralSlides();}
 
@@ -40,5 +40,17 @@ public class Intake {
             arm.finalRelease();
         }
         lift.goToPosition(currentPosition);
+    }
+
+    public static boolean isArmCollect(){
+        return Hardware.frontClawAngle.getPosition()==arm.getCollectOrPlacePose();
+    }
+
+    public static boolean areSlidesExtended(){
+        return slide.isExtended();
+    }
+
+    public static void higherCollectPose(){
+        arm.finalRelease();
     }
 }

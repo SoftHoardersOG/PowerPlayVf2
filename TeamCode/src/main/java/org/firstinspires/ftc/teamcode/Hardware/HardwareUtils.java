@@ -1,11 +1,14 @@
 package org.firstinspires.ftc.teamcode.Hardware;
 
-import com.qualcomm.hardware.rev.RevColorSensorV3;
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
+import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.Hardware.RevColorSensor.RevColorSensorV3;
 import org.firstinspires.ftc.teamcode.Hardware.revex.ExpansionHubEx;
 
 
@@ -24,7 +27,11 @@ public class HardwareUtils {
         return hardwareMap.get(Servo.class, name);
     }
 
-    public static RevColorSensorV3 getColorSensor(String name) {
+    public static AnalogInput getAnalogInput(String name) {
+        return hardwareMap.get(AnalogInput.class, name);
+    }
+
+    public static org.firstinspires.ftc.teamcode.Hardware.RevColorSensor.RevColorSensorV3 getColorSensor(String name) {
         return hardwareMap.get(RevColorSensorV3.class, name);
     }
 

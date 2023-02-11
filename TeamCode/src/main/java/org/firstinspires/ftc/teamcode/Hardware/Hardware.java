@@ -3,7 +3,9 @@ package org.firstinspires.ftc.teamcode.Hardware;
 import static org.firstinspires.ftc.teamcode.Hardware.HardwareUtils.*;
 
 import com.qualcomm.hardware.broadcom.BroadcomColorSensor;
-import com.qualcomm.hardware.rev.RevColorSensorV3;
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
+import com.qualcomm.robotcore.hardware.AccelerationSensor;
+import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -14,9 +16,12 @@ import com.qualcomm.robotcore.hardware.ServoImplEx;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.Hardware.RevColorSensor.RevColorSensorV3;
 import org.firstinspires.ftc.teamcode.Hardware.revex.RevBulkData;
 import org.firstinspires.ftc.teamcode.Mechanisms.Intake;
 import org.firstinspires.ftc.teamcode.Mechanisms.Place;
+import org.firstinspires.ftc.teamcode.TeleOp.ActionManager;
+import org.firstinspires.ftc.teamcode.Utils.ActionDelayer;
 import org.firstinspires.ftc.teamcode.Utils.Sleep;
 
 
@@ -35,6 +40,7 @@ public class Hardware {
     public static Telemetry telemetry;
     public static DcMotor leftSlide;
     public static DcMotor rightSlide;
+    public static AnalogInput potentiometer;
     public static RevColorSensorV3 sensor;
 
     public static void init(HardwareMap hardwareMap, Telemetry _telemetry) {
@@ -54,7 +60,7 @@ public class Hardware {
         backSlide = getDcEx("backSlide");
         turret = getServo("turret");
         sensor = getColorSensor("sensor");
-        sensor.initialize(new BroadcomColorSensor.Parameters())
+        potentiometer = getAnalogInput("potentiometer");
         telemetry.addLine("Hardware mapping done!");
     }
 
@@ -62,6 +68,10 @@ public class Hardware {
         backSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -88,7 +98,6 @@ public class Hardware {
         frontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         initPositions();
-
         telemetry.addLine("Hardware configuring done!");
     }
 
@@ -96,15 +105,19 @@ public class Hardware {
         backSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        backSlide.setPower(0.8);
-        rightSlide.setPower(0.8);
-        leftSlide.setPower(0.8);
+        backSlide.setPower(1);
+        rightSlide.setPower(1);
+        leftSlide.setPower(1);
         backSlide.setTargetPosition(0);
         rightSlide.setTargetPosition(0);
         leftSlide.setTargetPosition(0);
@@ -120,6 +133,8 @@ public class Hardware {
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        ActionManager.transfer=true;
+        ActionManager.cycling=true;
         initPositions();
 
         telemetry.addLine("Hardware configuring done!");

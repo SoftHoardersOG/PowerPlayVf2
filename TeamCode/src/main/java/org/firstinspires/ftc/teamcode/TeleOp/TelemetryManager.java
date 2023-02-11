@@ -30,6 +30,11 @@ public class TelemetryManager {
         addTelemetry("backsSlide current RPM", Hardware.backSlide.getVelocity(AngleUnit.DEGREES)/6);
         addTelemetry("front lift current positon", Intake.currentPosition);
         addTelemetry("color sensor reading: ", Hardware.sensor.getDistance(DistanceUnit.CM));
+        addTelemetry("!!!!!!!!!!TRANSFER USING SENSOR!!!!!!!!!!!", !ActionManager.transfer);
+        addTelemetry("potentiometer value: ", Hardware.potentiometer.getVoltage());
+        addTelemetry("Left Odometer Value: ", -Hardware.frontRight.getCurrentPosition());
+        addTelemetry("Right Odometer Value: ", Hardware.backRight.getCurrentPosition());
+        addTelemetry("Mid Odometer Value: ", Hardware.backLeft.getCurrentPosition());
         dashboard.sendTelemetryPacket(packet);
         telemetry.update();
     }
@@ -54,3 +59,4 @@ public class TelemetryManager {
         packet.put(caption, value);
     }
 }
+

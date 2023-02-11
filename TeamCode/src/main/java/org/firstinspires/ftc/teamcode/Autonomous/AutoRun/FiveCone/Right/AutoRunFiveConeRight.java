@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveCone.Right;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.Autonomous.A;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoCases;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
@@ -60,16 +61,18 @@ public class AutoRunFiveConeRight implements Runnable {
         Intake.currentPosition=5;
         for (int i=1;i<=5;i++){
             if (i>1){
-                Hardware.rightSlide.setTargetPosition(-30);
-                Hardware.leftSlide.setTargetPosition(30);
+                Hardware.rightSlide.setTargetPosition(-20);
+                Hardware.leftSlide.setTargetPosition(20);
             }
             Intake.collect();
             Intake.changeLiftToPosition(-1);
-            if (i<5) {
-                Hardware.frontClawAngle.setPosition(0.63);
-            }
+            Hardware.frontClawAngle.setPosition(0.66);
             if (i==1){
-                Hardware.frontClawAngle.setPosition(0.59);
+                Hardware.frontClawAngle.setPosition(0.65);
+            }
+            Hardware.frontClawAngle.setPosition(0.68);
+            if (i>=4){
+                Hardware.frontClawAngle.setPosition(0.71);
             }
             opMode.sleep(350+i*10);
             Intake.close();
@@ -77,14 +80,14 @@ public class AutoRunFiveConeRight implements Runnable {
             Intake.neutralSlides();
             Intake.transfer();
             Intake.liftToPosition(5);
-            if (i==1) {
-                opMode.sleep(490);
-            }
-            else{
-                opMode.sleep(530);
+            long currentTime=System.currentTimeMillis();
+            while (Hardware.sensor.getDistance(DistanceUnit.CM)>4&&System.currentTimeMillis()-currentTime<1500);
+            if (System.currentTimeMillis()-currentTime>1500){
+                ActionDelayer.time(140, Intake::open);
+                continue;
             }
             Intake.open();
-            opMode.sleep(130);
+            opMode.sleep(400);
             Hardware.turret.setPosition(0.355);
             Intake.idle();
             Place.place();
