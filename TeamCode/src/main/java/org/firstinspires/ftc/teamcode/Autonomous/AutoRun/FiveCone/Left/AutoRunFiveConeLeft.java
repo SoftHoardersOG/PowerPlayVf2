@@ -20,9 +20,6 @@ public class AutoRunFiveConeLeft implements Runnable {
     private SampleMecanumDrive sampleMecanumDrive;
     public static AutoCases detectedCase;
     private LinearOpMode opMode;
-    public static int TMPosition = 3;
-    public static double rulerAngle = 0.788;
-    public static double rulerBase = 0.61;
 
     public AutoRunFiveConeLeft(SampleMecanumDrive sampleMecanumDrive, LinearOpMode opMode) {
         this.sampleMecanumDrive = sampleMecanumDrive;

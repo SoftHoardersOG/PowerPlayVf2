@@ -4,5 +4,7 @@ public enum AutoCase {
     FiveConeRight,
     FiveConeLeft,
     TenConeRight,
-    TenConeLeft
+    TenConeLeft,
+    FiveConeMIDRight,
+    FiveConeMIDLeft
 }

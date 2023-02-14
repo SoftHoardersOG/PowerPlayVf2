@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveCone.Left.AutoRunFiveConeLeft;
 import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveCone.Right.AutoRunFiveConeRight;
+import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveConeMID.Left.AutoRunFiveConeMIDLeft;
+import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveConeMID.Right.AutoRunFiveConeMIDRight;
 import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.TenCone.Left.AutoRunTenConeLeft;
 import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.TenCone.Right.AutoRunTenConeRight;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoCase;
@@ -86,6 +88,10 @@ public class SelectAuto extends LinearOpMode {
             return new AutoRunTenConeLeft(sampleMecanumDrive, opMode);
         } else if (PoseStorage.autoCase == AutoCase.TenConeRight) {
             return new AutoRunTenConeRight(sampleMecanumDrive, opMode);
+        } else if (PoseStorage.autoCase == AutoCase.FiveConeMIDRight) {
+            return new AutoRunFiveConeMIDRight(sampleMecanumDrive, opMode);
+        }if (PoseStorage.autoCase == AutoCase.FiveConeMIDLeft) {
+            return new AutoRunFiveConeMIDLeft(sampleMecanumDrive, opMode);
         } else {
             return new AutoRunTenConeRight(sampleMecanumDrive, opMode);
         }
