@@ -86,7 +86,7 @@ public class Hardware {
         motorConfigurationType.setTicksPerRev(145.1);
         motorConfigurationType.setMaxRPM(1150);
         backSlide.setMotorType(motorConfigurationType);
-        backSlide.setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, new PIDFCoefficients(8, 0,0,0));
+        backSlide.setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, new PIDFCoefficients(9, 0,0,0));
         backSlide.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(30, 0,10,0));
         ((ServoImplEx)(frontClawAngle)).setPwmRange(new PwmControl.PwmRange(500, 2500));
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -105,10 +105,6 @@ public class Hardware {
         backSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -126,7 +122,7 @@ public class Hardware {
         motorConfigurationType.setTicksPerRev(145.1);
         motorConfigurationType.setMaxRPM(1150);
         backSlide.setMotorType(motorConfigurationType);
-        backSlide.setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, new PIDFCoefficients(8, 0,0,0));
+        backSlide.setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, new PIDFCoefficients(9, 0,0,0));
         backSlide.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(30, 0,10,0));
         ((ServoImplEx)(frontClawAngle)).setPwmRange(new PwmControl.PwmRange(500, 2500));
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -135,7 +131,7 @@ public class Hardware {
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         ActionManager.transfer=true;
         ActionManager.cycling=true;
-        initPositions();
+        initPositionsAuto();
 
         telemetry.addLine("Hardware configuring done!");
     }
@@ -146,6 +142,16 @@ public class Hardware {
         Sleep.ms(500);
         Place.transfer();
         Place.open();
+        Place.turretToPosition(2);
+        Intake.liftToPosition(0);
+    }
+
+    private static void initPositionsAuto(){
+        Place.transfer();
+        Place.open();
+        Intake.idle();
+        Sleep.ms(400);
+        Intake.open();
         Place.turretToPosition(2);
         Intake.liftToPosition(0);
     }

@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Intake {
-    private static final Claw claw = new Claw(Hardware.frontClaw, 0.15, 0.35);
-    private static final Arm arm = new Arm(Hardware.frontClawAngle, 0.01, 0.71, 0.15,0.68);
+    private static final Claw claw = new Claw(Hardware.frontClaw, 0.19, 0.36);
+    private static final Arm arm = new Arm(Hardware.frontClawAngle, 0.00, 0.71, 0.15,0.70);
     private static final Position lift = new Position(Hardware.frontClawLift , new ArrayList<Double>(Arrays.asList(0.06, 0.18, 0.27, 0.4, 0.4, 0.08)));
     private static final FrontSlides slide = new FrontSlides();
     public static int currentPosition=0;
@@ -37,7 +37,7 @@ public class Intake {
             currentPosition=4;
         }
         if (currentPosition==4){
-            arm.finalRelease();
+            Hardware.frontClawAngle.setPosition(0.65);
         }
         lift.goToPosition(currentPosition);
     }

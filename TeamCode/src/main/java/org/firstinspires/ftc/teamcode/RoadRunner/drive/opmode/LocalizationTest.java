@@ -4,6 +4,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.SampleMecanumDrive;
 
@@ -36,6 +37,11 @@ public class LocalizationTest extends LinearOpMode {
             drive.update();
 
             Pose2d poseEstimate = drive.getPoseEstimate();
+
+            telemetry.addData("encoder front right", hardwareMap.get(DcMotorEx.class, "frontRight").getCurrentPosition());
+            telemetry.addData("encoder back right", hardwareMap.get(DcMotorEx.class, "backRight").getCurrentPosition());
+            telemetry.addData("encoder front left", hardwareMap.get(DcMotorEx.class, "frontLeft").getCurrentPosition());
+            telemetry.addData("encoder back left", hardwareMap.get(DcMotorEx.class, "backLeft").getCurrentPosition());
             telemetry.addData("x", poseEstimate.getX());
             telemetry.addData("y", poseEstimate.getY());
             telemetry.addData("heading", poseEstimate.getHeading());

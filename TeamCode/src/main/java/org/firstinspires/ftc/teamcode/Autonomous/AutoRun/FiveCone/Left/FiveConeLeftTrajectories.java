@@ -22,7 +22,7 @@ public class FiveConeLeftTrajectories {
 
     public static Trajectory IntakeTrajectory(Pose2d pose2d) {
         return drive.trajectoryBuilder(pose2d, true)
-                .lineToLinearHeading(new Pose2d(-35.31, -12, Math.toRadians(270)),
+                .lineToLinearHeading(new Pose2d(-35.31, -13, Math.toRadians(270)),
                         SampleMecanumDrive.getVelocityConstraint(30, Math.toRadians(10), DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(30))
                 .build();
@@ -30,8 +30,8 @@ public class FiveConeLeftTrajectories {
 
     public static Trajectory IntakeTrajectory2(Pose2d pose2d) {
         return drive.trajectoryBuilder(new Pose2d(pose2d.getX(), pose2d.getY(), 180))
-                .lineToLinearHeading(new Pose2d(-51.8, -11.4, Math.toRadians(180)),
-                        SampleMecanumDrive.getVelocityConstraint(30, Math.toRadians(100), DriveConstants.TRACK_WIDTH),
+                .lineToLinearHeading(new Pose2d(-41, -11.7, Math.toRadians(180)),//45
+                        SampleMecanumDrive.getVelocityConstraint(30, Math.toRadians(70), DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(30))
                 .build();
     }

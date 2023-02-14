@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.Mechanisms.Intake;
 import org.firstinspires.ftc.teamcode.Mechanisms.Place;
 import org.firstinspires.ftc.teamcode.Utils.ActionDelayer;
 import org.firstinspires.ftc.teamcode.Utils.OneTap;
+import org.firstinspires.ftc.teamcode.Utils.Potentiometer;
 
 public class ActionManager {
     private static Gamepad gamepad1;
@@ -40,6 +41,7 @@ public class ActionManager {
         changeTransfer();
         changeCycle();
         checkCollectPose();
+        beaconPose();
     }
 
     public static void checkCollectPose(){
@@ -88,8 +90,11 @@ public class ActionManager {
                 ActionDelayer.time(0, Intake::close);
                 ActionDelayer.time(150, Intake::neutralSlides);
                 ActionDelayer.time(150, Intake::idle);
-                ActionDelayer.time(200, Intake::idle);
-                ActionDelayer.time(150, ()-> ActionDelayer.condition(()->(Hardware.leftSlide.getCurrentPosition()<50||Hardware.rightSlide.getCurrentPosition()>-50)&&Hardware.potentiometer.getVoltage()<1.2,()->{
+                ActionDelayer.time(200, ()->{
+                    Intake.liftToPosition(0);
+                    Intake.currentPosition=0;
+                });
+                ActionDelayer.time(150, ()-> ActionDelayer.condition(()->(Hardware.leftSlide.getCurrentPosition()<50||Hardware.rightSlide.getCurrentPosition()>-50) && Potentiometer.isFrontArmUp(),()->{
                     ActionDelayer.time(0, Intake::transfer);
                     ActionDelayer.time(50, Intake::open);
                     ActionDelayer.time(150, Intake::idle);
@@ -118,7 +123,7 @@ public class ActionManager {
     }
 
     public static void placeAndReturn() {
-        if (gamepad1.triangle) {
+        if (gamepad1.triangle&&cycling) {
             Intake.collect();
             ActionDelayer.time(0, Place::open);
             ActionDelayer.time(300, ()->{
@@ -126,6 +131,16 @@ public class ActionManager {
                 Place.low();
             });
             ActionDelayer.time(150, Place::transfer);
+        }
+        else if (gamepad1.triangle&&!cycling){
+            Intake.collect();
+            ActionDelayer.time(0, () -> Hardware.backClawAngle.setPosition(0.06));
+            ActionDelayer.time(100, Place::open);
+            ActionDelayer.time(200, Place::transfer);
+            ActionDelayer.time(500, ()->{
+                Place.turretToPosition(2);
+                Place.low();
+            });
         }
     }
 
@@ -175,13 +190,18 @@ public class ActionManager {
     }
 
     public static void changeTransfer(){
-        if (oneTapChangeTransfer.onPress(gamepad1.touchpad)){
+        if (oneTapChangeTransfer.onPress(gamepad1.left_trigger>0.5)){
             transfer = !transfer;
         }
     }
     public static void changeCycle(){
         if (oneTapChangeCycle.onPress(gamepad2.touchpad)){
             cycling = !cycling;
+        }
+    }
+    public static void beaconPose(){
+        if (gamepad1.touchpad){
+            Hardware.frontClawAngle.setPosition(0.73);
         }
     }
 }

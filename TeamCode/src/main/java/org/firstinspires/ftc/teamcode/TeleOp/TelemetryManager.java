@@ -32,9 +32,10 @@ public class TelemetryManager {
         addTelemetry("color sensor reading: ", Hardware.sensor.getDistance(DistanceUnit.CM));
         addTelemetry("!!!!!!!!!!TRANSFER USING SENSOR!!!!!!!!!!!", !ActionManager.transfer);
         addTelemetry("potentiometer value: ", Hardware.potentiometer.getVoltage());
-        addTelemetry("Left Odometer Value: ", -Hardware.frontRight.getCurrentPosition());
-        addTelemetry("Right Odometer Value: ", Hardware.backRight.getCurrentPosition());
-        addTelemetry("Mid Odometer Value: ", Hardware.backLeft.getCurrentPosition());
+        addTelemetry("fronnt right: ", -Hardware.frontRight.getCurrentPosition());
+        addTelemetry("back right: ", Hardware.backRight.getCurrentPosition());
+        addTelemetry("back left: ", Hardware.backLeft.getCurrentPosition());
+        addTelemetry("front left: ", Hardware.frontLeft.getCurrentPosition());
         dashboard.sendTelemetryPacket(packet);
         telemetry.update();
     }
