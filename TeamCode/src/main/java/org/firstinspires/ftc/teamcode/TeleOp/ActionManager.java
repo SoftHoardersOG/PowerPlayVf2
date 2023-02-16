@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.Mechanisms.Place;
 import org.firstinspires.ftc.teamcode.Utils.ActionDelayer;
 import org.firstinspires.ftc.teamcode.Utils.OneTap;
 import org.firstinspires.ftc.teamcode.Utils.Potentiometer;
+import org.firstinspires.ftc.teamcode.Utils.Rumble;
 
 public class ActionManager {
     private static Gamepad gamepad1;
@@ -42,6 +43,8 @@ public class ActionManager {
         changeCycle();
         checkCollectPose();
         beaconPose();
+        Rumble.rumble(gamepad1, gamepad2);
+
     }
 
     public static void checkCollectPose(){

@@ -28,7 +28,7 @@ public class MainAuto extends LinearOpMode {
 
         Initializations.initAuto(hardwareMap, telemetry);
 
-        ///ImageDetection.initialize();
+        ImageDetection.initialize();
 
         Thread linearAuto = new Thread(SelectAuto.getAutoFromEnum(sampleMecanumDrive, this));
         if (PoseStorage.autoCase.toString().contains("Right")){

@@ -74,12 +74,12 @@ public class AutoRunFiveConeMIDRight implements Runnable {
                 Hardware.rightSlide.setTargetPosition(-760);
                 Hardware.leftSlide.setTargetPosition(760);
             }
-            if(i==4 || i==5) {
+            if (i == 4 || i == 5) {
                 Hardware.frontClawAngle.setPosition(0.66);
                 Hardware.rightSlide.setTargetPosition(-760);
                 Hardware.leftSlide.setTargetPosition(760);
             }
-            opMode.sleep(600);
+            opMode.sleep(400);
             Intake.close();
             opMode.sleep(250);
             Intake.idle();
@@ -91,11 +91,15 @@ public class AutoRunFiveConeMIDRight implements Runnable {
             Hardware.leftSlide.setTargetPosition(5);
             opMode.sleep(800);
             Intake.transfer();
-            while (!Potentiometer.isFrontArmUp());
+            while (!Potentiometer.isFrontArmUp()) ;
             opMode.sleep(100);
             Intake.open();
             opMode.sleep(100);
             Intake.idle();
+            if (i < 5) {
+                Hardware.rightSlide.setTargetPosition(-300);
+                Hardware.leftSlide.setTargetPosition(300);
+            }
             repose(sampleMecanumDrive);
             Hardware.backClawAngle.setPosition(0.36);
             Hardware.turret.setPosition(0.16);
@@ -113,12 +117,14 @@ public class AutoRunFiveConeMIDRight implements Runnable {
                 Hardware.frontClawAngle.setPosition(0.67);
                 Intake.changeLiftToPosition(-1);
             }
-            if(i ==3 || i==4)
-            {
+            if (i == 3) {
                 Hardware.frontClawAngle.setPosition(0.67);
             }
-            if (i==2){
+            if (i == 2) {
                 Hardware.frontClawAngle.setPosition(0.66);
+            }
+            if (i == 4) {
+                Hardware.frontClawAngle.setPosition(0.68);
             }
             opMode.sleep(280);
             Place.low();
@@ -134,11 +140,11 @@ public class AutoRunFiveConeMIDRight implements Runnable {
         drive.followTrajectory(FiveConeMIDRightTrajectories.IntakeTrajectory3(drive.getPoseEstimate()));
     }
 
-    public void repose(SampleMecanumDrive drive){
+    public void repose(SampleMecanumDrive drive) {
         drive.followTrajectory(FiveConeMIDRightTrajectories.Repose(drive.getPoseEstimate()));
     }
 
-    public void park(SampleMecanumDrive drive){
+    public void park(SampleMecanumDrive drive) {
         drive.followTrajectory(FiveConeMIDRightTrajectories.ParkTrajectory(drive.getPoseEstimate()));
         drive.followTrajectory(FiveConeMIDRightTrajectories.ParkTrajectory2(drive.getPoseEstimate()));
     }

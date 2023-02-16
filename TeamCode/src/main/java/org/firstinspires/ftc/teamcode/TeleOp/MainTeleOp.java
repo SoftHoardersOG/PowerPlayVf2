@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Utils.Initializations;
+import org.firstinspires.ftc.teamcode.Utils.Rumble;
 
 @TeleOp
 public class MainTeleOp extends LinearOpMode {
@@ -13,6 +14,7 @@ public class MainTeleOp extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         Initializations.initTeleOp(hardwareMap, drive, telemetry);
         waitForStart();
+        Rumble.start();
         while (opModeIsActive() && !isStopRequested()) {
             ActionManager.control(gamepad1, gamepad2);
             TelemetryManager.manage();

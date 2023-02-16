@@ -5,8 +5,8 @@ import org.firstinspires.ftc.teamcode.Hardware.Hardware;
 
 public class FrontSlides {
 
-    private final int maxPositionRight =-700;
-    private final int maxPositionLeft =700;
+    private final int maxPositionRight =-550;
+    private final int maxPositionLeft =550;
     private final int neutralPosition=0;
 
     public void goToMax(){

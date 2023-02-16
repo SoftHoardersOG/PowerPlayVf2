@@ -30,23 +30,23 @@ public class AutoRunFiveConeLeft implements Runnable {
 
     @Override
     public void run() {
-        //        switch (ImageDetection.beaconCaseOut) {
-//            case One:
-//                detectedCase = new A();
-//                break;
-//            case Two:
-//                detectedCase = new B();
-//                break;
-//            case Three:
-//                detectedCase = new C();
-//                break;
-//        }
+        switch (ImageDetection.beaconCaseOut) {
+            case One:
+                detectedCase = new A();
+                break;
+            case Two:
+                detectedCase = new B();
+                break;
+            case Three:
+                detectedCase = new C();
+                break;
+        }
 
-        ///mageDetection.camera.stopStreaming();
-        detectedCase = new C();
+        ImageDetection.camera.stopStreaming();
+
         intake(sampleMecanumDrive);
-        Hardware.rightSlide.setTargetPosition(-245);
-        Hardware.leftSlide.setTargetPosition(245);
+        Hardware.rightSlide.setTargetPosition(-250);
+        Hardware.leftSlide.setTargetPosition(250);
         Hardware.backClawAngle.setPosition(0.36);
         opMode.sleep(100);
         Place.close();
@@ -68,16 +68,16 @@ public class AutoRunFiveConeLeft implements Runnable {
         Hardware.frontClawAngle.setPosition(0.66);
         for (int i = 1; i <= 5; i++) {
             if (i > 1) {
-                Hardware.rightSlide.setTargetPosition(-240);
-                Hardware.leftSlide.setTargetPosition(240);
+                Hardware.rightSlide.setTargetPosition(-250);
+                Hardware.leftSlide.setTargetPosition(250);
             }
             if(i==4 || i==5)
             {
                 Hardware.frontClawAngle.setPosition(0.72);
-                Hardware.rightSlide.setTargetPosition(-255);
-                Hardware.leftSlide.setTargetPosition(255);
+                Hardware.rightSlide.setTargetPosition(-250);
+                Hardware.leftSlide.setTargetPosition(250);
             }
-            opMode.sleep(350 + i * 10);
+            opMode.sleep(450);
             Intake.close();
             opMode.sleep(150);
             Intake.idle();

@@ -14,6 +14,7 @@ public class Initializations {
         Movement.init(drive);
         Hardware.configureTeleOp();
         TelemetryManager.init();
+        Rumble.init();
     }
     public static void initAuto(HardwareMap hardwareMap, Telemetry telemetry){
         Hardware.init(hardwareMap, telemetry);
