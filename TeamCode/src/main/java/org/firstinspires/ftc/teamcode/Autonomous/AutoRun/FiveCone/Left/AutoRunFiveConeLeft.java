@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Hardware;
 import org.firstinspires.ftc.teamcode.Mechanisms.Intake;
 import org.firstinspires.ftc.teamcode.Mechanisms.Place;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.Utils.ActionDelayer;
 import org.firstinspires.ftc.teamcode.Utils.Potentiometer;
 
 
@@ -41,12 +42,11 @@ public class AutoRunFiveConeLeft implements Runnable {
                 detectedCase = new C();
                 break;
         }
-
-        ImageDetection.camera.stopStreaming();
+        ActionDelayer.time(0, ()->ImageDetection.camera.stopStreaming());
 
         intake(sampleMecanumDrive);
-        Hardware.rightSlide.setTargetPosition(-250);
-        Hardware.leftSlide.setTargetPosition(250);
+        Hardware.rightSlide.setTargetPosition(-240);
+        Hardware.leftSlide.setTargetPosition(240);
         Hardware.backClawAngle.setPosition(0.36);
         opMode.sleep(100);
         Place.close();
@@ -68,14 +68,14 @@ public class AutoRunFiveConeLeft implements Runnable {
         Hardware.frontClawAngle.setPosition(0.66);
         for (int i = 1; i <= 5; i++) {
             if (i > 1) {
-                Hardware.rightSlide.setTargetPosition(-250);
-                Hardware.leftSlide.setTargetPosition(250);
+                Hardware.rightSlide.setTargetPosition(-240);
+                Hardware.leftSlide.setTargetPosition(240);
             }
             if(i==4 || i==5)
             {
                 Hardware.frontClawAngle.setPosition(0.72);
-                Hardware.rightSlide.setTargetPosition(-250);
-                Hardware.leftSlide.setTargetPosition(250);
+                Hardware.rightSlide.setTargetPosition(-240);
+                Hardware.leftSlide.setTargetPosition(240);
             }
             opMode.sleep(450);
             Intake.close();

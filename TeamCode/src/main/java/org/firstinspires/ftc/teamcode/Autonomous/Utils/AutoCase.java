@@ -6,5 +6,7 @@ public enum AutoCase {
     TenConeRight,
     TenConeLeft,
     FiveConeMIDRight,
-    FiveConeMIDLeft
+    FiveConeMIDLeft,
+    ParkRight,
+    ParkLeft,
 }

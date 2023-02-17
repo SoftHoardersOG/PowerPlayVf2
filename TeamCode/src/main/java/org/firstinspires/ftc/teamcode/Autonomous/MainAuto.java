@@ -18,7 +18,6 @@ public class MainAuto extends LinearOpMode {
     public static long firstTime;
     public static double duration = 0;
     public static boolean isAPressed = false;
-    public static Pose2d startPosition = new Pose2d();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -39,7 +38,6 @@ public class MainAuto extends LinearOpMode {
         }
 
         waitForStart();
-
         linearAuto.start();
         firstTime = System.currentTimeMillis();
 

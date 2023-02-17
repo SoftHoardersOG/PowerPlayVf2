@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Hardware;
 import org.firstinspires.ftc.teamcode.Mechanisms.Intake;
 import org.firstinspires.ftc.teamcode.Mechanisms.Place;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.Utils.ActionDelayer;
 import org.firstinspires.ftc.teamcode.Utils.Potentiometer;
 
 
@@ -33,19 +34,19 @@ public class AutoRunFiveConeMIDRight implements Runnable {
 
     @Override
     public void run() {
-        //        switch (ImageDetection.beaconCaseOut) {
-//            case One:
-//                detectedCase = new A();
-//                break;
-//            case Two:
-//                detectedCase = new B();
-//                break;
-//            case Three:
-//                detectedCase = new C();
-//                break;
-//        }
+                switch (ImageDetection.beaconCaseOut) {
+            case One:
+                detectedCase = new A();
+                break;
+            case Two:
+                detectedCase = new B();
+                break;
+            case Three:
+                detectedCase = new C();
+                break;
+        }
 
-        ///mageDetection.camera.stopStreaming();
+        ActionDelayer.time(0, ()->ImageDetection.camera.stopStreaming());
         detectedCase = new A();
         intake(sampleMecanumDrive);
         Hardware.backClawAngle.setPosition(0.36);

@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Hardware;
 import org.firstinspires.ftc.teamcode.Mechanisms.Intake;
 import org.firstinspires.ftc.teamcode.Mechanisms.Place;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.Utils.ActionDelayer;
 import org.firstinspires.ftc.teamcode.Utils.Potentiometer;
 
 
@@ -23,9 +24,6 @@ public class AutoRunFiveConeMIDLeft implements Runnable {
     public static AutoCases detectedCase;
     private LinearOpMode opMode;
     public static Pose2d reposePose;
-    public static int TMPosition = 3;
-    public static double rulerAngle = 0.788;
-    public static double rulerBase = 0.61;
 
     public AutoRunFiveConeMIDLeft(SampleMecanumDrive sampleMecanumDrive, LinearOpMode opMode) {
         this.sampleMecanumDrive = sampleMecanumDrive;
@@ -36,19 +34,18 @@ public class AutoRunFiveConeMIDLeft implements Runnable {
 
     @Override
     public void run() {
-        //        switch (ImageDetection.beaconCaseOut) {
-//            case One:
-//                detectedCase = new A();
-//                break;
-//            case Two:
-//                detectedCase = new B();
-//                break;
-//            case Three:
-//                detectedCase = new C();
-//                break;
-//        }
-
-        ///mageDetection.camera.stopStreaming();
+        switch (ImageDetection.beaconCaseOut) {
+            case One:
+                detectedCase = new A();
+                break;
+            case Two:
+                detectedCase = new B();
+                break;
+            case Three:
+                detectedCase = new C();
+                break;
+        }
+        ActionDelayer.time(0, ()->ImageDetection.camera.stopStreaming());
         detectedCase = new A();
         intake(sampleMecanumDrive);
         Hardware.backClawAngle.setPosition(0.36);
@@ -103,7 +100,7 @@ public class AutoRunFiveConeMIDLeft implements Runnable {
             Hardware.leftSlide.setTargetPosition(300);
             repose(sampleMecanumDrive);
             Hardware.backClawAngle.setPosition(0.36);
-            Hardware.turret.setPosition(0.16);
+            Hardware.turret.setPosition(0.98);
             opMode.sleep(500);
             Place.highAutoLeft();
             Place.close();

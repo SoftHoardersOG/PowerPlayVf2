@@ -127,7 +127,7 @@ public class ActionManager {
 
     public static void placeAndReturn() {
         if (gamepad1.triangle&&cycling) {
-            Intake.collect();
+            ActionDelayer.time(200, Intake::collect);
             ActionDelayer.time(0, Place::open);
             ActionDelayer.time(300, ()->{
                 Place.turretToPosition(2);

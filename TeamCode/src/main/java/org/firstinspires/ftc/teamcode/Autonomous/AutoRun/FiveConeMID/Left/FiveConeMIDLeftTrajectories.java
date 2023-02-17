@@ -24,23 +24,23 @@ public class FiveConeMIDLeftTrajectories {
     public static Trajectory IntakeTrajectory(Pose2d pose2d) {
         return drive.trajectoryBuilder(pose2d, true)
                 .lineToLinearHeading(new Pose2d(-6, -60.30, Math.toRadians(270.00)),
-                        SampleMecanumDrive.getVelocityConstraint(30, Math.toRadians(10), DriveConstants.TRACK_WIDTH),
-                        SampleMecanumDrive.getAccelerationConstraint(30))
+                        SampleMecanumDrive.getVelocityConstraint(50, Math.toRadians(10), DriveConstants.TRACK_WIDTH),
+                        SampleMecanumDrive.getAccelerationConstraint(50))
                 .build();
     }
 
     public static Trajectory IntakeTrajectory2(Pose2d pose2d) {
         return drive.trajectoryBuilder(pose2d)
                 .lineToLinearHeading(new Pose2d(-9, -12, Math.toRadians(270.00)),
-                        SampleMecanumDrive.getVelocityConstraint(30, Math.toRadians(10), DriveConstants.TRACK_WIDTH),
-                        SampleMecanumDrive.getAccelerationConstraint(30))
+                        SampleMecanumDrive.getVelocityConstraint(50, Math.toRadians(10), DriveConstants.TRACK_WIDTH),
+                        SampleMecanumDrive.getAccelerationConstraint(50))
                 .build();
     }
 
     public static Trajectory IntakeTrajectory3(Pose2d pose2d) {
-        return drive.trajectoryBuilder(new Pose2d(pose2d.getX(), pose2d.getY(), 0))
-                .lineToLinearHeading(new Pose2d(-17, -13, Math.toRadians(186)),
-                        SampleMecanumDrive.getVelocityConstraint(30, Math.toRadians(30), DriveConstants.TRACK_WIDTH),
+        return drive.trajectoryBuilder(new Pose2d(pose2d.getX(), pose2d.getY(), -8))
+                .lineToLinearHeading(new Pose2d(-16.5, -13, Math.toRadians(180)),
+                        SampleMecanumDrive.getVelocityConstraint(30, Math.toRadians(70), DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(30))
                 .build();
     }

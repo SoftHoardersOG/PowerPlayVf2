@@ -32,23 +32,22 @@ public class AutoRunFiveConeRight implements Runnable {
 
     @Override
     public void run() {
-//        switch (ImageDetection.beaconCaseOut) {
-//            case One:
-//                detectedCase = new A();
-//                break;
-//            case Two:
-//                detectedCase = new B();
-//                break;
-//            case Three:
-//                detectedCase = new C();
-//                break;
-//        }
+        switch (ImageDetection.beaconCaseOut) {
+            case One:
+                detectedCase = new A();
+                break;
+            case Two:
+                detectedCase = new B();
+                break;
+            case Three:
+                detectedCase = new C();
+                break;
+        }
+        ActionDelayer.time(0, ()->ImageDetection.camera.stopStreaming());
 
-        ///mageDetection.camera.stopStreaming();
-        detectedCase = new B();
         intake(sampleMecanumDrive);
-        Hardware.rightSlide.setTargetPosition(-245);
-        Hardware.leftSlide.setTargetPosition(245);
+        Hardware.rightSlide.setTargetPosition(-250);
+        Hardware.leftSlide.setTargetPosition(250);
         Hardware.backClawAngle.setPosition(0.36);
         opMode.sleep(100);
         Place.close();
@@ -70,8 +69,8 @@ public class AutoRunFiveConeRight implements Runnable {
         Hardware.frontClawAngle.setPosition(0.66);
         for (int i = 1; i <= 5; i++) {
             if (i > 1) {
-                Hardware.rightSlide.setTargetPosition(-240);
-                Hardware.leftSlide.setTargetPosition(240);
+                Hardware.rightSlide.setTargetPosition(-252);
+                Hardware.leftSlide.setTargetPosition(252);
             }
             if(i==4 || i==5)
             {
@@ -85,12 +84,12 @@ public class AutoRunFiveConeRight implements Runnable {
             opMode.sleep(100);
             Intake.liftToPosition(0);
             opMode.sleep(350);
-            Hardware.rightSlide.setTargetPosition(-5);
-            Hardware.leftSlide.setTargetPosition(5);
+            Hardware.rightSlide.setTargetPosition(0);
+            Hardware.leftSlide.setTargetPosition(0);
             opMode.sleep(250);
             Intake.transfer();
             while (!Potentiometer.isFrontArmUp());
-            opMode.sleep(100);
+            opMode.sleep(200);
             Intake.open();
             opMode.sleep(100);
             Intake.idle();
