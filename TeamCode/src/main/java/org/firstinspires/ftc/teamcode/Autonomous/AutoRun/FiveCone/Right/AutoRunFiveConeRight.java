@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.Autonomous.A;
+import org.firstinspires.ftc.teamcode.Autonomous.Tests.AprilTagImageDetection;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoCases;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoUtil;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.ImageDetection;
@@ -32,7 +33,7 @@ public class AutoRunFiveConeRight implements Runnable {
 
     @Override
     public void run() {
-        switch (ImageDetection.beaconCaseOut) {
+        switch (AprilTagImageDetection.beaconCaseOut) {
             case One:
                 detectedCase = new A();
                 break;
@@ -43,7 +44,7 @@ public class AutoRunFiveConeRight implements Runnable {
                 detectedCase = new C();
                 break;
         }
-        ActionDelayer.time(0, ()->ImageDetection.camera.stopStreaming());
+        ActionDelayer.time(0, ()-> AprilTagImageDetection.camera.stopStreaming());
 
         intake(sampleMecanumDrive);
         Hardware.rightSlide.setTargetPosition(-250);

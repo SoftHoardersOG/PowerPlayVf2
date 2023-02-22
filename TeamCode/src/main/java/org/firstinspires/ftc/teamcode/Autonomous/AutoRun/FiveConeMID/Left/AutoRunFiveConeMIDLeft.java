@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveCone.Right.FiveCone
 import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveConeMID.Right.FiveConeMIDRightTrajectories;
 import org.firstinspires.ftc.teamcode.Autonomous.B;
 import org.firstinspires.ftc.teamcode.Autonomous.C;
+import org.firstinspires.ftc.teamcode.Autonomous.Tests.AprilTagImageDetection;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoCases;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.ImageDetection;
 import org.firstinspires.ftc.teamcode.Hardware.Hardware;
@@ -34,7 +35,7 @@ public class AutoRunFiveConeMIDLeft implements Runnable {
 
     @Override
     public void run() {
-        switch (ImageDetection.beaconCaseOut) {
+        switch (AprilTagImageDetection.beaconCaseOut) {
             case One:
                 detectedCase = new A();
                 break;
@@ -45,7 +46,7 @@ public class AutoRunFiveConeMIDLeft implements Runnable {
                 detectedCase = new C();
                 break;
         }
-        ActionDelayer.time(0, ()->ImageDetection.camera.stopStreaming());
+        ActionDelayer.time(0, ()-> AprilTagImageDetection.camera.stopStreaming());
         detectedCase = new A();
         intake(sampleMecanumDrive);
         Hardware.backClawAngle.setPosition(0.36);

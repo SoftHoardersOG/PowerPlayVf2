@@ -13,7 +13,7 @@ public class C extends AutoCases {
 
     @Override
     public Pose2d getParkPoseLeft() {
-        return new Pose2d(-8, -13, Math.toRadians(250));
+        return new Pose2d(-8, -13, Math.toRadians(262));
     }
 
     @Override

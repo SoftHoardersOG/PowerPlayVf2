@@ -127,16 +127,17 @@ public class ActionManager {
 
     public static void placeAndReturn() {
         if (gamepad1.triangle&&cycling) {
-            ActionDelayer.time(200, Intake::collect);
-            ActionDelayer.time(0, Place::open);
-            ActionDelayer.time(300, ()->{
+            ActionDelayer.time(800, Intake::collect);
+            ActionDelayer.time(0, () -> Hardware.backClawAngle.setPosition(0.06));
+            ActionDelayer.time(100, Place::open);
+            ActionDelayer.time(200, Place::transfer);
+            ActionDelayer.time(500, ()->{
                 Place.turretToPosition(2);
                 Place.low();
             });
-            ActionDelayer.time(150, Place::transfer);
         }
         else if (gamepad1.triangle&&!cycling){
-            Intake.collect();
+            ActionDelayer.time(0, Intake::collect);
             ActionDelayer.time(0, () -> Hardware.backClawAngle.setPosition(0.06));
             ActionDelayer.time(100, Place::open);
             ActionDelayer.time(200, Place::transfer);

@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.Autonomous.Tests.AprilTagImageDetection;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.ImageDetection;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.PoseStorage;
 import org.firstinspires.ftc.teamcode.Hardware.Hardware;
@@ -27,7 +28,7 @@ public class MainAuto extends LinearOpMode {
 
         Initializations.initAuto(hardwareMap, telemetry);
 
-        ImageDetection.initialize();
+        AprilTagImageDetection.initialize();
 
         Thread linearAuto = new Thread(SelectAuto.getAutoFromEnum(sampleMecanumDrive, this));
         if (PoseStorage.autoCase.toString().contains("Right")){
@@ -37,13 +38,15 @@ public class MainAuto extends LinearOpMode {
             sampleMecanumDrive.setPoseEstimate(new Pose2d(-35.75, -63.33, Math.toRadians(270)));
         }
 
-        waitForStart();
+        while (!opModeIsActive() && !isStopRequested()){
+            AprilTagImageDetection.detect();
+        }
         linearAuto.start();
         firstTime = System.currentTimeMillis();
 
         while (!isStopRequested() && opModeIsActive()) {
             isAPressed = gamepad1.a;
-
+            Hardware.telemetry.addData("backslide pose", Hardware.backSlide.getCurrentPosition());
             if (!linearAuto.isAlive()) {
                 if (duration == 0) {
                     duration = (System.currentTimeMillis() - firstTime) / (1000.0);

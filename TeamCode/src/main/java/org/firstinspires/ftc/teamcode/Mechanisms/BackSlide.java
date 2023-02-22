@@ -10,7 +10,8 @@ public class BackSlide {
     public void goToHigh(){Hardware.backSlide.setTargetPosition(highPosition);}
     public void goToHighAuto(){Hardware.backSlide.setTargetPosition(-525);}
     public void goToHighAutoRight(){Hardware.backSlide.setTargetPosition(-535);}
-    public void goToHighAutoLeft(){Hardware.backSlide.setTargetPosition(-465);}
+    public void goToHighAutoLeft(){Hardware.backSlide.setTargetPosition(-570);}
+    public void goToHighAutoLeftPreload(){Hardware.backSlide.setTargetPosition(-580);}
 
     public void goToMid(){Hardware.backSlide.setTargetPosition(midPosition);}
 

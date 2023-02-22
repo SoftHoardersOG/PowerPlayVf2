@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveCone.Left.AutoRunFi
 import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveCone.Right.AutoRunFiveConeRight;
 import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveConeMID.Left.AutoRunFiveConeMIDLeft;
 import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveConeMID.Right.AutoRunFiveConeMIDRight;
+import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveConeMidJunction.AutoRunFiveConeMidJunctionLeft;
 import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.Park.Left.AutoRunParkLeft;
 import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.Park.Right.AutoRunParkRight;
 import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.TenCone.Left.AutoRunTenConeLeft;
@@ -98,7 +99,9 @@ public class SelectAuto extends LinearOpMode {
             return new AutoRunParkLeft(sampleMecanumDrive, opMode);
         } else if (PoseStorage.autoCase == AutoCase.ParkRight) {
             return new AutoRunParkRight(sampleMecanumDrive, opMode);
-        } else {
+        } else if (PoseStorage.autoCase == AutoCase.FiveConeMIDJUNCTIONLeft) {
+            return new AutoRunFiveConeMidJunctionLeft(sampleMecanumDrive, opMode);
+        }else{
             return new AutoRunParkRight(sampleMecanumDrive, opMode);
         }
     }

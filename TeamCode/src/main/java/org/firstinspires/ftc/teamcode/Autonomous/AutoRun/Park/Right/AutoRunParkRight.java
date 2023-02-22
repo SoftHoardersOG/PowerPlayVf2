@@ -6,6 +6,7 @@ import org.firstinspires.ftc.teamcode.Autonomous.A;
 import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveCone.Right.FiveConeRightTrajectories;
 import org.firstinspires.ftc.teamcode.Autonomous.B;
 import org.firstinspires.ftc.teamcode.Autonomous.C;
+import org.firstinspires.ftc.teamcode.Autonomous.Tests.AprilTagImageDetection;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoCases;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.ImageDetection;
 import org.firstinspires.ftc.teamcode.Hardware.Hardware;
@@ -23,13 +24,13 @@ public class AutoRunParkRight implements Runnable{
     public AutoRunParkRight(SampleMecanumDrive sampleMecanumDrive, LinearOpMode opMode) {
         this.sampleMecanumDrive = sampleMecanumDrive;
         this.opMode = opMode;
-        FiveConeRightTrajectories.setDrive(sampleMecanumDrive);
-        FiveConeRightTrajectories.InitTrajectories();
+        ParkRightTrajectories.setDrive(sampleMecanumDrive);
+        ParkRightTrajectories.InitTrajectories();
     }
 
     @Override
     public void run() {
-        switch (ImageDetection.beaconCaseOut) {
+        switch (AprilTagImageDetection.beaconCaseOut) {
             case One:
                 detectedCase = new A();
                 break;
@@ -40,7 +41,7 @@ public class AutoRunParkRight implements Runnable{
                 detectedCase = new C();
                 break;
         }
-        ActionDelayer.time(0, ()->ImageDetection.camera.stopStreaming());
+        ActionDelayer.time(0, ()->AprilTagImageDetection.camera.stopStreaming());
 
         intake(sampleMecanumDrive);
         Hardware.rightSlide.setTargetPosition(-250);
