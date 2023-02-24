@@ -6,9 +6,12 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.Hardware.Hardware;
 import org.firstinspires.ftc.teamcode.Mechanisms.Intake;
+import org.firstinspires.ftc.teamcode.Utils.Gyro;
 
 public class TelemetryManager {
 
@@ -36,6 +39,10 @@ public class TelemetryManager {
         addTelemetry("back right: ", Hardware.backRight.getCurrentPosition());
         addTelemetry("back left: ", Hardware.backLeft.getCurrentPosition());
         addTelemetry("front left: ", Hardware.frontLeft.getCurrentPosition());
+        addTelemetry("magnetic sensor pressed:", Hardware.magneticSensor.isPressed());
+        addTelemetry("magnetic sensor value?:", Hardware.magneticSensor.getValue());
+        addTelemetry("gyro heading", Gyro.getHeadingAutoDegrees());
+        addTelemetry("gyro accel", (double) Hardware.gyro.getAngularVelocity(AngleUnit.RADIANS).zRotationRate);
         dashboard.sendTelemetryPacket(packet);
         telemetry.update();
     }

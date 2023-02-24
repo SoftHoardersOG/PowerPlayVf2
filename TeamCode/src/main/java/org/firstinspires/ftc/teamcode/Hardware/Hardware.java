@@ -2,19 +2,25 @@ package org.firstinspires.ftc.teamcode.Hardware;
 
 import static org.firstinspires.ftc.teamcode.Hardware.HardwareUtils.*;
 
+import android.text.method.Touch;
+
 import com.qualcomm.hardware.broadcom.BroadcomColorSensor;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.hardware.AccelerationSensor;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IntegratingGyroscope;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.PwmControl;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoImplEx;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
+import org.firstinspires.ftc.robotcontroller.external.samples.SensorMRGyro;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Hardware.RevColorSensor.RevColorSensorV3;
 import org.firstinspires.ftc.teamcode.Hardware.revex.RevBulkData;
@@ -42,6 +48,9 @@ public class Hardware {
     public static DcMotor rightSlide;
     public static AnalogInput potentiometer;
     public static RevColorSensorV3 sensor;
+    public static TouchSensor magneticSensor;
+    public static IntegratingGyroscope gyro;
+    public static ModernRoboticsI2cGyro modernRoboticsI2cGyro;
 
     public static void init(HardwareMap hardwareMap, Telemetry _telemetry) {
         HardwareUtils.hardwareMap = hardwareMap;
@@ -61,7 +70,11 @@ public class Hardware {
         turret = getServo("turret");
         sensor = getColorSensor("sensor");
         potentiometer = getAnalogInput("potentiometer");
-        telemetry.addLine("Hardware mapping done!");
+        magneticSensor = getTouchSensor("magneticSensor");
+        modernRoboticsI2cGyro = getGyro("gyro");
+        gyro=(IntegratingGyroscope)modernRoboticsI2cGyro;
+        telemetry.log().add("Hardware mapping done!");
+        telemetry.update();
     }
 
     public static void configureTeleOp(){
@@ -75,9 +88,9 @@ public class Hardware {
         backSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        backSlide.setPower(0.8);
-        rightSlide.setPower(0.8);
-        leftSlide.setPower(0.8);
+        backSlide.setPower(1);
+        rightSlide.setPower(1);
+        leftSlide.setPower(1);
         backSlide.setTargetPosition(0);
         rightSlide.setTargetPosition(0);
         leftSlide.setTargetPosition(0);
@@ -98,7 +111,8 @@ public class Hardware {
         frontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         initPositions();
-        telemetry.addLine("Hardware configuring done!");
+        telemetry.log().add("Hardware configuring done!");
+        telemetry.update();
     }
 
     public static void configureAuto(){
@@ -132,8 +146,8 @@ public class Hardware {
         ActionManager.transfer=true;
         ActionManager.cycling=true;
         initPositionsAuto();
-
-        telemetry.addLine("Hardware configuring done!");
+        telemetry.log().add("Hardware configuring done!");
+        telemetry.update();
     }
 
     private static void initPositions(){

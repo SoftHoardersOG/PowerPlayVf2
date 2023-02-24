@@ -1,10 +1,16 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
+import com.google.blocks.ftcrobotcontroller.hardware.HardwareUtil;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.HardwareDevice;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.Hardware.Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.HardwareUtils;
+import org.firstinspires.ftc.teamcode.Mechanisms.BackSlide;
 import org.firstinspires.ftc.teamcode.Mechanisms.Intake;
 import org.firstinspires.ftc.teamcode.Mechanisms.Place;
 import org.firstinspires.ftc.teamcode.Utils.ActionDelayer;
@@ -22,6 +28,7 @@ public class ActionManager {
     private static final OneTap oneTapChangeCycle = new OneTap();
     public static boolean transfer = true;
     public static boolean cycling = true;
+    public static boolean verif = true;
 
     public static void control(Gamepad _gamepad1, Gamepad _gamepad2) {
         gamepad1 = _gamepad1;
@@ -206,6 +213,23 @@ public class ActionManager {
     public static void beaconPose(){
         if (gamepad1.touchpad){
             Hardware.frontClawAngle.setPosition(0.73);
+        }
+    }
+    public static void checkSlidersPosition(){
+        if(gamepad2.dpad_down){
+            verif=true;
+            Hardware.backSlide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            Hardware.backSlide.setPower(0.1);
+
+        }
+        if (verif&&Hardware.magneticSensor.isPressed()){
+            Hardware.backSlide.setPower(0);
+            Hardware.backSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            Hardware.backSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            Hardware.backSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            Hardware.backSlide.setTargetPosition(0);
+            Hardware.backSlide.setPower(1);
+            verif=false;
         }
     }
 }

@@ -52,7 +52,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
 */
 @TeleOp(name = "Sensor: MR Gyro", group = "Sensor")
-@Disabled
 public class SensorMRGyro extends LinearOpMode {
 
   /** In this sample, for illustration purposes we use two interfaces on the one gyro object.
@@ -125,7 +124,7 @@ public class SensorMRGyro extends LinearOpMode {
       // about all three axes. Additionally, it internally integrates the Z axis to
       // be able to report an absolute angular Z orientation.
       AngularVelocity rates = gyro.getAngularVelocity(AngleUnit.DEGREES);
-      float zAngle = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+      float zAngle = modernRoboticsI2cGyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).secondAngle;
 
       // Read administrative information from the gyro
       int zAxisOffset = modernRoboticsI2cGyro.getZAxisOffset();

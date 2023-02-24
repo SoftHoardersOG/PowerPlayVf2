@@ -27,10 +27,13 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.Hardware.Hardware;
 import org.firstinspires.ftc.teamcode.RoadRunner.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.RoadRunner.trajectorysequence.TrajectorySequenceBuilder;
 import org.firstinspires.ftc.teamcode.RoadRunner.trajectorysequence.TrajectorySequenceRunner;
 import org.firstinspires.ftc.teamcode.RoadRunner.util.LynxModuleUtil;
+import org.firstinspires.ftc.teamcode.Utils.Gyro;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -297,16 +300,12 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     @Override
     public double getRawExternalHeading() {
-        if (imu != null)
-            return imu.getAngularOrientation().firstAngle;
-            return 0;
+        return Gyro.getHeadingAutoRadians();
     }
 
     @Override
     public Double getExternalHeadingVelocity() {
-        if (imu != null)
-            return (double) imu.getAngularVelocity().zRotationRate;
-            return (double) 0;
+            return (double) Hardware.gyro.getAngularVelocity(AngleUnit.RADIANS).zRotationRate;
     }
 
     public static TrajectoryVelocityConstraint getVelocityConstraint(double maxVel, double maxAngularVel, double trackWidth) {
