@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Hardware.Hardware;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.RoadRunner.drive.TwoWheelOdometry;
 import org.firstinspires.ftc.teamcode.TeleOp.Movement;
 import org.firstinspires.ftc.teamcode.TeleOp.TelemetryManager;
 
@@ -21,5 +22,6 @@ public class Initializations {
         Hardware.init(hardwareMap, telemetry);
         Hardware.configureAuto();
         TelemetryManager.init();
+        Gyro.calibrate();
     }
 }
