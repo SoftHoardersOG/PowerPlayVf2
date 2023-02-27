@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.Hardware.HardwareUtils;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Utils.Initializations;
 
-@Autonomous(name = "Main Auto")
+@Autonomous(name = "Main Auto", preselectTeleOp = "MainTeleOp")
 public class MainAuto extends LinearOpMode {
     public static long firstTime;
     public static double duration = 0;

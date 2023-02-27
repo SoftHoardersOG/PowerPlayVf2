@@ -49,57 +49,68 @@ public class AutoRunFiveConeMidJunctionLeft implements Runnable{
         Hardware.turret.setPosition(1);
         opMode.sleep(450);
         Hardware.backSlide.setTargetPosition(-215);
-        opMode.sleep(520);
+        opMode.sleep(720);
         Hardware.backClawAngle.setPosition(0.11);
         opMode.sleep(100);
         Place.open();
         opMode.sleep(100);
         Place.transfer();
+        Hardware.frontClawAngle.setPosition(0.67);
+        Intake.currentPosition = 5;
+        Intake.changeLiftToPosition(-1);
         opMode.sleep(340);
         Place.low();
         Place.transfer();
         Place.turretToPosition(2);
-        Hardware.rightSlide.setTargetPosition(-322);
-        Hardware.leftSlide.setTargetPosition(322);
-        Intake.currentPosition = 5;
-        Intake.changeLiftToPosition(-1);
-        Hardware.frontClawAngle.setPosition(0.66);
+        Hardware.rightSlide.setTargetPosition(-315);
+        Hardware.leftSlide.setTargetPosition(315);
+        Hardware.frontClawAngle.setPosition(0.67);
         for (int i = 1; i <= 5; i++) {
             if (i > 1) {
-                Hardware.rightSlide.setTargetPosition(-322);
-                Hardware.leftSlide.setTargetPosition(322);
+                Hardware.rightSlide.setTargetPosition(-318);
+                Hardware.leftSlide.setTargetPosition(318);
             }
-            if(i==4 || i==5)
-            {
+            if (i == 3) {
+                Hardware.rightSlide.setTargetPosition(-319);
+                Hardware.leftSlide.setTargetPosition(319);
+            }
+            if (i == 4) {
                 Hardware.frontClawAngle.setPosition(0.72);
-                Hardware.rightSlide.setTargetPosition(-322);
-                Hardware.leftSlide.setTargetPosition(322);
+                Hardware.rightSlide.setTargetPosition(-320);
+                Hardware.leftSlide.setTargetPosition(320);
+            }
+            if (i == 5) {
+                Hardware.frontClawAngle.setPosition(0.72);
+                Hardware.rightSlide.setTargetPosition(-325);
+                Hardware.leftSlide.setTargetPosition(325);
+            }
+            if (i == 1) {
+                opMode.sleep(150);
             }
             opMode.sleep(450);
             Intake.close();
-            opMode.sleep(150);
+            opMode.sleep(250);
             Intake.idle();
-            Hardware.backClawAngle.setPosition(0.92);
+            Hardware.backClawAngle.setPosition(0.94);
             opMode.sleep(100);
             Intake.liftToPosition(0);
             opMode.sleep(350);
-            Hardware.rightSlide.setTargetPosition(-5);
-            Hardware.leftSlide.setTargetPosition(5);
-            opMode.sleep(250);
+            Hardware.rightSlide.setTargetPosition(-10);
+            Hardware.leftSlide.setTargetPosition(10);
+            opMode.sleep(320);
             Intake.transfer();
-            while (!Potentiometer.isFrontArmUp());
-            opMode.sleep(100);
+            opMode.sleep(50);
             Intake.open();
-            opMode.sleep(100);
+            opMode.sleep(150);
             Intake.idle();
             Hardware.backClawAngle.setPosition(0.36);
-            Hardware.turret.setPosition(1);
+            Hardware.turret.setPosition(1);///1
             opMode.sleep(200);
             Place.close();
-            opMode.sleep(300);
+            opMode.sleep(400);
             Hardware.backSlide.setTargetPosition(-215);
             opMode.sleep(120);
-            opMode.sleep(400);
+            opMode.sleep(600);
             Hardware.backClawAngle.setPosition(0.08);
             opMode.sleep(200);
             Place.open();
@@ -109,8 +120,7 @@ public class AutoRunFiveConeMidJunctionLeft implements Runnable{
                 Hardware.frontClawAngle.setPosition(0.71);
                 Intake.changeLiftToPosition(-1);
             }
-            if(i ==3 || i==4)
-            {
+            if (i == 3 || i == 4) {
                 Hardware.frontClawAngle.setPosition(0.72);
             }
             opMode.sleep(280);
