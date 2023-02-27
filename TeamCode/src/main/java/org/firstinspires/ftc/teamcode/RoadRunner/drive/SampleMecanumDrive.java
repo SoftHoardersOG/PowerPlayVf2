@@ -33,7 +33,6 @@ import org.firstinspires.ftc.teamcode.RoadRunner.trajectorysequence.TrajectorySe
 import org.firstinspires.ftc.teamcode.RoadRunner.trajectorysequence.TrajectorySequenceBuilder;
 import org.firstinspires.ftc.teamcode.RoadRunner.trajectorysequence.TrajectorySequenceRunner;
 import org.firstinspires.ftc.teamcode.RoadRunner.util.LynxModuleUtil;
-import org.firstinspires.ftc.teamcode.Utils.Gyro;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,9 +58,8 @@ public class SampleMecanumDrive extends MecanumDrive {
     //public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(8, 0, 0);
     //public static PIDCoefficients HEADING_PID = new PIDCoefficients(2, 0, 0);
 
-    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(6, 0, 1);
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(3, 0, 1);
-
+    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(4, 0, 0);
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(1.6, 0, 0);
 
     public static double LATERAL_MULTIPLIER = 1;
 
@@ -154,10 +152,12 @@ public class SampleMecanumDrive extends MecanumDrive {
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // TODO: if desired, use setLocalizer() to change the localization method
-        setLocalizer(new TwoWheelOdometry(hardwareMap));
+
+        setLocalizer(new TwoWheelOdometry(hardwareMap, this));
 
         trajectorySequenceRunner = new TrajectorySequenceRunner(follower, HEADING_PID);
     }
+
 
     public TrajectoryBuilder trajectoryBuilder(Pose2d startPose) {
         return new TrajectoryBuilder(startPose, VEL_CONSTRAINT, ACCEL_CONSTRAINT);
@@ -305,12 +305,12 @@ public class SampleMecanumDrive extends MecanumDrive {
 
     @Override
     public double getRawExternalHeading() {
-        return Gyro.getHeadingAutoRadians();
+        return imu.getAngularOrientation().firstAngle;
     }
 
     @Override
     public Double getExternalHeadingVelocity() {
-            return (double) Hardware.gyro.getAngularVelocity(AngleUnit.RADIANS).zRotationRate;
+        return (double) -imu.getAngularVelocity().xRotationRate;
     }
 
     public static TrajectoryVelocityConstraint getVelocityConstraint(double maxVel, double maxAngularVel, double trackWidth) {

@@ -10,7 +10,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.Hardware.Hardware;
 import org.firstinspires.ftc.teamcode.RoadRunner.util.Encoder;
-import org.firstinspires.ftc.teamcode.Utils.Gyro;
 
 import java.util.Arrays;
 import java.util.List;
@@ -54,11 +53,15 @@ public class TwoWheelOdometry extends TwoTrackingWheelLocalizer {
     // Perpendicular is perpendicular to the forward axis
     private Encoder parallelEncoder, perpendicularEncoder;
 
-    public TwoWheelOdometry(HardwareMap hardwareMap) {
+    private SampleMecanumDrive drive;
+
+    public TwoWheelOdometry(HardwareMap hardwareMap, SampleMecanumDrive drive) {
         super(Arrays.asList(
                 new Pose2d(PARALLEL_X, PARALLEL_Y, 0),
                 new Pose2d(PERPENDICULAR_X, PERPENDICULAR_Y, Math.toRadians(90))
         ));
+
+        this.drive=drive;
 
         parallelEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "frontRight"));
         perpendicularEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "backLeft"));
@@ -73,12 +76,12 @@ public class TwoWheelOdometry extends TwoTrackingWheelLocalizer {
 
     @Override
     public double getHeading() {
-        return Gyro.getHeadingAutoRadians();
+        return drive.getRawExternalHeading();
     }
 
     @Override
     public Double getHeadingVelocity() {
-        return (double) Hardware.gyro.getAngularVelocity(AngleUnit.RADIANS).zRotationRate;
+        return drive.getExternalHeadingVelocity();
     }
 
     @NonNull

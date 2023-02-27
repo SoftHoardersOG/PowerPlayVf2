@@ -49,8 +49,6 @@ public class Hardware {
     public static AnalogInput potentiometer;
     public static RevColorSensorV3 sensor;
     public static TouchSensor magneticSensor;
-    public static IntegratingGyroscope gyro;
-    public static ModernRoboticsI2cGyro modernRoboticsI2cGyro;
 
     public static void init(HardwareMap hardwareMap, Telemetry _telemetry) {
         HardwareUtils.hardwareMap = hardwareMap;
@@ -71,8 +69,6 @@ public class Hardware {
         sensor = getColorSensor("sensor");
         potentiometer = getAnalogInput("potentiometer");
         magneticSensor = getTouchSensor("magneticSensor");
-        modernRoboticsI2cGyro = getGyro("gyro");
-        gyro=(IntegratingGyroscope)modernRoboticsI2cGyro;
         telemetry.log().add("Hardware mapping done!");
         telemetry.update();
     }

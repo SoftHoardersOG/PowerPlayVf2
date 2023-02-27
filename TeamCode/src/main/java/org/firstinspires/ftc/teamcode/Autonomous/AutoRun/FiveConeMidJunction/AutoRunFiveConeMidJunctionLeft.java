@@ -61,25 +61,25 @@ public class AutoRunFiveConeMidJunctionLeft implements Runnable{
         Place.low();
         Place.transfer();
         Place.turretToPosition(2);
-        Hardware.rightSlide.setTargetPosition(-340);
-        Hardware.leftSlide.setTargetPosition(340);
+        Hardware.rightSlide.setTargetPosition(-333);
+        Hardware.leftSlide.setTargetPosition(333);
         Intake.currentPosition = 5;
         Intake.changeLiftToPosition(-1);
         Hardware.frontClawAngle.setPosition(0.66);
         for (int i = 1; i <= 5; i++) {
             if (i > 1) {
-                Hardware.rightSlide.setTargetPosition(-343);
-                Hardware.leftSlide.setTargetPosition(343);
+                Hardware.rightSlide.setTargetPosition(-333);
+                Hardware.leftSlide.setTargetPosition(333);
             }
             if (i == 3 || i==4) {
-                Hardware.rightSlide.setTargetPosition(-348);
-                Hardware.leftSlide.setTargetPosition(348);
+                Hardware.rightSlide.setTargetPosition(-335);
+                Hardware.leftSlide.setTargetPosition(335);
             }
             if(i==5)
             {
                 Hardware.frontClawAngle.setPosition(0.72);
-                Hardware.rightSlide.setTargetPosition(-350);
-                Hardware.leftSlide.setTargetPosition(350);
+                Hardware.rightSlide.setTargetPosition(-340);
+                Hardware.leftSlide.setTargetPosition(340);
             }
             opMode.sleep(450);
             Intake.close();

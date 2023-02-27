@@ -16,12 +16,10 @@ public class Initializations {
         Hardware.configureTeleOp();
         TelemetryManager.init();
         Rumble.init();
-        Gyro.calibrate();
     }
     public static void initAuto(HardwareMap hardwareMap, Telemetry telemetry){
         Hardware.init(hardwareMap, telemetry);
         Hardware.configureAuto();
         TelemetryManager.init();
-        Gyro.calibrate();
     }
 }
