@@ -1,22 +1,22 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
-import com.google.blocks.ftcrobotcontroller.hardware.HardwareUtil;
+import android.app.admin.SecurityLog;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.HardwareDevice;
-import com.qualcomm.robotcore.hardware.TouchSensor;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
+import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.Hardware.Hardware;
-import org.firstinspires.ftc.teamcode.Hardware.HardwareUtils;
-import org.firstinspires.ftc.teamcode.Mechanisms.BackSlide;
 import org.firstinspires.ftc.teamcode.Mechanisms.Intake;
 import org.firstinspires.ftc.teamcode.Mechanisms.Place;
 import org.firstinspires.ftc.teamcode.Utils.ActionDelayer;
 import org.firstinspires.ftc.teamcode.Utils.OneTap;
 import org.firstinspires.ftc.teamcode.Utils.Potentiometer;
 import org.firstinspires.ftc.teamcode.Utils.Rumble;
+import org.firstinspires.ftc.teamcode.Utils.Sleep;
 
 public class ActionManager {
     private static Gamepad gamepad1;
@@ -26,9 +26,10 @@ public class ActionManager {
     private static final OneTap oneTapRB = new OneTap();
     private static final OneTap oneTapChangeTransfer = new OneTap();
     private static final OneTap oneTapChangeCycle = new OneTap();
+    private static final OneTap oneTapResetEncoders = new OneTap();
     public static boolean transfer = true;
     public static boolean cycling = true;
-    public static boolean verif = true;
+    public static boolean resetBackSLide = true;
 
     public static void control(Gamepad _gamepad1, Gamepad _gamepad2) {
         gamepad1 = _gamepad1;
@@ -46,10 +47,11 @@ public class ActionManager {
         groundPlace();
         raiseArm();
         frontLift();
-        changeTransfer();
+        //changeTransfer();
         changeCycle();
         checkCollectPose();
         beaconPose();
+        checkSlidersPosition();
         Rumble.rumble(gamepad1, gamepad2);
 
     }
@@ -216,20 +218,22 @@ public class ActionManager {
         }
     }
     public static void checkSlidersPosition(){
-        if(gamepad2.dpad_down){
-            verif=true;
+        if(oneTapResetEncoders.onPress(gamepad2.dpad_down)){
+            resetBackSLide =  true;
             Hardware.backSlide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             Hardware.backSlide.setPower(0.1);
-
         }
-        if (verif&&Hardware.magneticSensor.isPressed()){
+        if (resetBackSLide&&Hardware.magneticSensor.isPressed()){
             Hardware.backSlide.setPower(0);
+            Sleep.ms(300);
             Hardware.backSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            Hardware.backSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             Hardware.backSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            Hardware.backSlide.setTargetPosition(0);
+            Hardware.backSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             Hardware.backSlide.setPower(1);
-            verif=false;
+            Hardware.backSlide.setTargetPosition(0);
+            Hardware.backSlide.setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, new PIDFCoefficients(9, 0,0,0));
+            Hardware.backSlide.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(30, 0,10,0));
+            resetBackSLide = false;
         }
     }
 }

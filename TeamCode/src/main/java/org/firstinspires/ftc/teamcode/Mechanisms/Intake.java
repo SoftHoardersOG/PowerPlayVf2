@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Intake {
-    private static final Claw claw = new Claw(Hardware.frontClaw, 0.13, 0.33);
+    private static final Claw claw = new Claw(Hardware.frontClaw, 0.19, 0.35);
     private static final Arm arm = new Arm(Hardware.frontClawAngle, 0.00, 0.71, 0.15,0.70);
     private static final Position lift = new Position(Hardware.frontClawLift , new ArrayList<Double>(Arrays.asList(0.06, 0.18, 0.27, 0.4, 0.4, 0.08)));
     private static final FrontSlides slide = new FrontSlides();
