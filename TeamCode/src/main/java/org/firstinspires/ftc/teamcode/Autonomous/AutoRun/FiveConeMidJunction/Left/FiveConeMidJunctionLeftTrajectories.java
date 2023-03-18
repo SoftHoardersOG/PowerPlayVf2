@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveConeMidJunction;
+package org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveConeMidJunction.Left;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
@@ -30,8 +30,8 @@ public class FiveConeMidJunctionLeftTrajectories {
 
     public static Trajectory IntakeTrajectory2(Pose2d pose2d) {
         return drive.trajectoryBuilder(new Pose2d(pose2d.getX(), pose2d.getY(), 180))
-                .lineToLinearHeading(new Pose2d(-38, -15, Math.toRadians(178)),//45
-                        SampleMecanumDrive.getVelocityConstraint(30, Math.toRadians(70), DriveConstants.TRACK_WIDTH),
+                .lineToLinearHeading(new Pose2d(-37.8, -15.2, Math.toRadians(176)),//45
+                        SampleMecanumDrive.getVelocityConstraint(30, Math.toRadians(60), DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(30))
                 .build();
     }

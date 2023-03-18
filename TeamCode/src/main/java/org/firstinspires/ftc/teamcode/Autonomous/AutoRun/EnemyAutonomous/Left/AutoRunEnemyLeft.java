@@ -1,8 +1,9 @@
-package org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveCone.Left;
+package org.firstinspires.ftc.teamcode.Autonomous.AutoRun.EnemyAutonomous.Left;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Autonomous.A;
+import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.EnemyAutonomous.Left.EnemyLeftTrajectories;
 import org.firstinspires.ftc.teamcode.Autonomous.B;
 import org.firstinspires.ftc.teamcode.Autonomous.C;
 import org.firstinspires.ftc.teamcode.Autonomous.Tests.AprilTagImageDetection;
@@ -14,17 +15,17 @@ import org.firstinspires.ftc.teamcode.RoadRunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Utils.ActionDelayer;
 
 
-public class AutoRunFiveConeLeft implements Runnable {
+public class AutoRunEnemyLeft implements Runnable {
 
     private SampleMecanumDrive sampleMecanumDrive;
     public static AutoCases detectedCase;
     private LinearOpMode opMode;
 
-    public AutoRunFiveConeLeft(SampleMecanumDrive sampleMecanumDrive, LinearOpMode opMode) {
+    public  AutoRunEnemyLeft(SampleMecanumDrive sampleMecanumDrive, LinearOpMode opMode) {
         this.sampleMecanumDrive = sampleMecanumDrive;
         this.opMode = opMode;
-        FiveConeLeftTrajectories.setDrive(sampleMecanumDrive);
-        FiveConeLeftTrajectories.InitTrajectories();
+        EnemyLeftTrajectories.setDrive(sampleMecanumDrive);
+        EnemyLeftTrajectories.InitTrajectories();
     }
 
     @Override
@@ -42,17 +43,22 @@ public class AutoRunFiveConeLeft implements Runnable {
         }
         ActionDelayer.time(0, () -> AprilTagImageDetection.camera.stopStreaming());
         intake(sampleMecanumDrive);
-        Hardware.backClawAngle.setPosition(0.36);
+        Hardware.backClawAngle.setPosition(0.41);
         opMode.sleep(100);
         Place.close();
-        Hardware.turret.setPosition(0.1);//0.98
+        Hardware.turret.setPosition(0.10);//0.98
         opMode.sleep(450);
         Place.highAutoLeftPreload(); // -215
-        opMode.sleep(720);
+        opMode.sleep(350);
+        Hardware.turret.setPosition(0.4);//0.98
+        Hardware.backClawAngle.setPosition(0.34);
+        opMode.sleep(370);
         Hardware.backClawAngle.setPosition(0.11);
         opMode.sleep(100);
         Place.open();
-        opMode.sleep(100);
+        opMode.sleep(50);
+        Hardware.turret.setPosition(0.3);
+        opMode.sleep(50);
         Place.transfer();
         Hardware.frontClawAngle.setPosition(-0.03+0.67);
         Intake.currentPosition = 5;
@@ -61,39 +67,36 @@ public class AutoRunFiveConeLeft implements Runnable {
         Place.low();
         Place.transfer();
         Place.turretToPosition(2);
-        Hardware.rightSlide.setTargetPosition(-261);
-        Hardware.leftSlide.setTargetPosition(261);
-        Hardware.frontClawAngle.setPosition(-0.03+0.67);
+        Hardware.rightSlide.setTargetPosition(-256);
+        Hardware.leftSlide.setTargetPosition(256);
+        Hardware.frontClawAngle.setPosition(-0.03+0.68);
         for (int i = 1; i <= 5; i++) {
             if (i == 2) {
                 Hardware.rightSlide.setTargetPosition(-254);
                 Hardware.leftSlide.setTargetPosition(254);
             }
             if (i == 3) {
+                Hardware.frontClawAngle.setPosition(-0.03+0.71);
                 Hardware.rightSlide.setTargetPosition(-250);
                 Hardware.leftSlide.setTargetPosition(250);
             }
             if (i == 4) {
                 Hardware.frontClawAngle.setPosition(-0.03+0.72);
-                Hardware.rightSlide.setTargetPosition(-247);
-                Hardware.leftSlide.setTargetPosition(247);
+                Hardware.rightSlide.setTargetPosition(-244);
+                Hardware.leftSlide.setTargetPosition(244);
             }
             if (i == 5) {
                 Hardware.frontClawAngle.setPosition(-0.03+0.72);
-                Hardware.rightSlide.setTargetPosition(-245);
-                Hardware.leftSlide.setTargetPosition(245);
+                Hardware.rightSlide.setTargetPosition(-240);
+                Hardware.leftSlide.setTargetPosition(240);
             }
             if (i == 1) {
                 opMode.sleep(150);
             }
             opMode.sleep(450);
             Intake.close();
-            opMode.sleep(100);
-            Hardware.rightSlide.setTargetPosition(-245);
-            Hardware.leftSlide.setTargetPosition(245);
-            opMode.sleep(50);
+            opMode.sleep(250);
             Intake.idle();
-            opMode.sleep(100);
             Hardware.backClawAngle.setPosition(0.94);
             opMode.sleep(100);
             Intake.liftToPosition(0);
@@ -106,25 +109,29 @@ public class AutoRunFiveConeLeft implements Runnable {
             Intake.open();
             opMode.sleep(250);
             Intake.idle();
-            Hardware.backClawAngle.setPosition(0.36);
+            Hardware.backClawAngle.setPosition(0.4);
             Hardware.turret.setPosition(0.10);///1
             opMode.sleep(200);
             Place.close();
             opMode.sleep(300);
             Place.highAutoLeft();
-            opMode.sleep(120);
-            opMode.sleep(600);
+            opMode.sleep(280);
+            Hardware.turret.setPosition(0.41);//0.98
+            Hardware.backClawAngle.setPosition(0.34);
+            opMode.sleep(390);
             Hardware.backClawAngle.setPosition(0.08);
-            opMode.sleep(200);
+            opMode.sleep(100);
             Place.open();
-            opMode.sleep(90);
+            opMode.sleep(150);
+            Hardware.turret.setPosition(0.3);
+            opMode.sleep(40);
             Place.transfer();
             if (i < 5) {
-                Hardware.frontClawAngle.setPosition(-0.03+0.71);
+                Hardware.frontClawAngle.setPosition(-0.03+0.705);
                 Intake.changeLiftToPosition(-1);
             }
             if (i == 3 || i == 4) {
-                Hardware.frontClawAngle.setPosition(-0.03+0.72);
+                Hardware.frontClawAngle.setPosition(-0.03+0.69);
             }
             opMode.sleep(280);
             Place.low();
@@ -134,13 +141,13 @@ public class AutoRunFiveConeLeft implements Runnable {
     }
 
     public void intake(SampleMecanumDrive drive) {
-        drive.followTrajectory(FiveConeLeftTrajectories.IntakeTrajectory(drive.getPoseEstimate()));
-        drive.followTrajectory(FiveConeLeftTrajectories.IntakeTrajectory2(drive.getPoseEstimate()));
+        drive.followTrajectory(EnemyLeftTrajectories.IntakeTrajectory(drive.getPoseEstimate()));
+        drive.followTrajectory(EnemyLeftTrajectories.IntakeTrajectory2(drive.getPoseEstimate()));
     }
 
     public void park(SampleMecanumDrive drive) {
-        drive.followTrajectory(FiveConeLeftTrajectories.ParkTrajectory(drive.getPoseEstimate()));
-        drive.followTrajectory(FiveConeLeftTrajectories.ParkTrajectory2(drive.getPoseEstimate()));
+        drive.followTrajectory(EnemyLeftTrajectories.ParkTrajectory(drive.getPoseEstimate()));
+        drive.followTrajectory(EnemyLeftTrajectories.ParkTrajectory2(drive.getPoseEstimate()));
     }
 
 }

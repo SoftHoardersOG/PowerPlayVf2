@@ -28,6 +28,7 @@ public class ActionManager {
     private static final OneTap oneTapChangeCycle = new OneTap();
     private static final OneTap oneTapResetEncoders = new OneTap();
     public static boolean transfer = true;
+    public static boolean cacat = false;
     public static boolean cycling = true;
     public static boolean resetBackSLide = true;
 
@@ -59,6 +60,7 @@ public class ActionManager {
     public static void checkCollectPose(){
         if (Intake.isArmCollect()&&Intake.areSlidesExtended()){
             Intake.higherCollectPose();
+            cacat = true;
         }
     }
 
@@ -100,17 +102,21 @@ public class ActionManager {
         if (gamepad1.square) {
             if (transfer) {
                 ActionDelayer.time(0, Intake::close);
-                ActionDelayer.time(150, Intake::neutralSlides);
-                ActionDelayer.time(150, Intake::idle);
+                ActionDelayer.time(200, Intake::neutralSlides);
+                ActionDelayer.time(200, Intake::idle);
                 ActionDelayer.time(200, ()->{
                     Intake.liftToPosition(0);
                     Intake.currentPosition=0;
                 });
-                ActionDelayer.time(150, ()-> ActionDelayer.condition(()->(Hardware.leftSlide.getCurrentPosition()<50||Hardware.rightSlide.getCurrentPosition()>-50) && Potentiometer.isFrontArmUp(),()->{
+                ActionDelayer.time(150, ()-> ActionDelayer.condition(()->(Hardware.leftSlide.getCurrentPosition()<20||Hardware.rightSlide.getCurrentPosition()>-20) && Potentiometer.isFrontArmUp(),()->{
                     ActionDelayer.time(0, Intake::transfer);
                     ActionDelayer.time(50, Intake::open);
+                    ActionDelayer.time(120, ()->{
+                        Hardware.frontClaw.setPosition(0.12);
+                    });
                     ActionDelayer.time(150, Intake::idle);
                     ActionDelayer.time(160, Place::place);
+                    ActionDelayer.time(180, Intake::open);
                     ActionDelayer.time(350, Place::close);
                 }));
             }
@@ -214,7 +220,7 @@ public class ActionManager {
     }
     public static void beaconPose(){
         if (gamepad1.touchpad){
-            Hardware.frontClawAngle.setPosition(0.73);
+            Hardware.frontClawAngle.setPosition(-0.025+0.745);
         }
     }
     public static void checkSlidersPosition(){

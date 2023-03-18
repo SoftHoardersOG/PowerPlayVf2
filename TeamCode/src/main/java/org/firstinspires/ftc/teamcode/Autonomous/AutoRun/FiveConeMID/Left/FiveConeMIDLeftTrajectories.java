@@ -3,8 +3,6 @@ package org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveConeMID.Left;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 
-import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveCone.Left.AutoRunFiveConeLeft;
-import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveConeMID.Right.AutoRunFiveConeMIDRight;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.SampleMecanumDrive;
 

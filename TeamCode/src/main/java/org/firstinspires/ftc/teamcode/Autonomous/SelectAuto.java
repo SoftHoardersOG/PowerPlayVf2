@@ -5,11 +5,14 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.EnemyAutonomous.Left.AutoRunEnemyLeft;
+import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.EnemyAutonomous.Right.AutoRunEnemyRight;
 import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveCone.Left.AutoRunFiveConeLeft;
 import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveCone.Right.AutoRunFiveConeRight;
 import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveConeMID.Left.AutoRunFiveConeMIDLeft;
 import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveConeMID.Right.AutoRunFiveConeMIDRight;
-import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveConeMidJunction.AutoRunFiveConeMidJunctionLeft;
+import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveConeMidJunction.Left.AutoRunFiveConeMidJunctionLeft;
+import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveConeMidJunction.Right.AutoRunFiveConeMidJunctionRight;
 import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.Park.Left.AutoRunParkLeft;
 import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.Park.Right.AutoRunParkRight;
 import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.TenCone.Left.AutoRunTenConeLeft;
@@ -79,7 +82,6 @@ public class SelectAuto extends LinearOpMode {
     }
 
     public void selectedState(TelemetryPacket telemetryPacket) {
-
     }
 
     public static Runnable getAutoFromEnum(SampleMecanumDrive sampleMecanumDrive, LinearOpMode opMode) {
@@ -101,8 +103,14 @@ public class SelectAuto extends LinearOpMode {
             return new AutoRunParkRight(sampleMecanumDrive, opMode);
         } else if (PoseStorage.autoCase == AutoCase.FiveConeMIDJUNCTIONLeft) {
             return new AutoRunFiveConeMidJunctionLeft(sampleMecanumDrive, opMode);
-        }else{
-            return new AutoRunParkRight(sampleMecanumDrive, opMode);
+        } else if (PoseStorage.autoCase == AutoCase.EnemyLeft) {
+            return new AutoRunEnemyLeft(sampleMecanumDrive, opMode);
+        } else if (PoseStorage.autoCase == AutoCase.EnemyRight) {
+            return new AutoRunEnemyRight(sampleMecanumDrive, opMode);
+        } if (PoseStorage.autoCase == AutoCase.FiveConeMIDJUNCTIONRight) {
+            return new AutoRunFiveConeMidJunctionRight(sampleMecanumDrive, opMode);
+        } else {
+            return new AutoRunFiveConeLeft(sampleMecanumDrive, opMode);
         }
     }
 }

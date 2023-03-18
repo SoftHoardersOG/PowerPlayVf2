@@ -9,5 +9,8 @@ public enum AutoCase {
     FiveConeMIDLeft,
     ParkRight,
     ParkLeft,
-    FiveConeMIDJUNCTIONLeft
+    FiveConeMIDJUNCTIONLeft,
+    FiveConeMIDJUNCTIONRight,
+    EnemyLeft,
+    EnemyRight
 }

@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.TeleOp;
 
 import static org.firstinspires.ftc.teamcode.Hardware.Hardware.telemetry;
 
+import android.drm.DrmStore;
+
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 
@@ -33,6 +35,7 @@ public class TelemetryManager {
         addTelemetry("front lift current positon", Intake.currentPosition);
         addTelemetry("color sensor reading: ", Hardware.sensor.getDistance(DistanceUnit.CM));
         addTelemetry("!!!!!!!!!!TRANSFER USING SENSOR!!!!!!!!!!!", !ActionManager.transfer);
+        addTelemetry("?????????????????????????STATE CYCLE?????????????????", ActionManager.cycling);
         addTelemetry("potentiometer value: ", Hardware.potentiometer.getVoltage());
         addTelemetry("fronnt right: ", -Hardware.frontRight.getCurrentPosition());
         addTelemetry("back right: ", Hardware.backRight.getCurrentPosition());
@@ -40,6 +43,7 @@ public class TelemetryManager {
         addTelemetry("front left: ", Hardware.frontLeft.getCurrentPosition());
         addTelemetry("magnetic sensor pressed:", Hardware.magneticSensor.isPressed());
         addTelemetry("magnetic sensor value?:", Hardware.magneticSensor.getValue());
+        addTelemetry("s-a facut aia:", ActionManager.cacat);
         dashboard.sendTelemetryPacket(packet);
         telemetry.update();
     }

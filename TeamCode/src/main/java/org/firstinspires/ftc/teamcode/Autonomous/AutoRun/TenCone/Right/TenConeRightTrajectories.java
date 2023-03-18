@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Autonomous.AutoRun.TenCone.Right;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 
-import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveCone.Left.AutoRunFiveConeLeft;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.SampleMecanumDrive;
 
@@ -28,16 +27,16 @@ public class TenConeRightTrajectories {
     }
 
     public static Trajectory IntakeTrajectory2(Pose2d pose2d) {
-        return drive.trajectoryBuilder(new Pose2d(pose2d.getX(), pose2d.getY(), 0))
-                .lineToLinearHeading(new Pose2d(52.65, -11.5, Math.toRadians(4)),
-                        SampleMecanumDrive.getVelocityConstraint(80, Math.toRadians(15), DriveConstants.TRACK_WIDTH),
-                        SampleMecanumDrive.getAccelerationConstraint(50)) ////50
+        return drive.trajectoryBuilder(pose2d)
+                .lineToLinearHeading(new Pose2d(52.6, -11.5, Math.toRadians(0)),
+                        SampleMecanumDrive.getVelocityConstraint(50, Math.toRadians(200), DriveConstants.TRACK_WIDTH),
+                        SampleMecanumDrive.getAccelerationConstraint(40)) ////50
                 .build();
     }
 
     public static Trajectory ParkTrajectory(Pose2d pose2d) {
         return drive.trajectoryBuilder(pose2d)
-                .lineToLinearHeading(AutoRunTenConeRight.detectedCase.getParkPoseTenRight(),
+                .lineToLinearHeading(AutoRunTenConeRight.detectedCase.getParkPoseLeft(),
                         SampleMecanumDrive.getVelocityConstraint(50, Math.toRadians(200), DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(50)) ///50
                 .build();
@@ -60,7 +59,7 @@ public class TenConeRightTrajectories {
     }
     public static Trajectory GoToSecondStack2(Pose2d pose2d) {
         return drive.trajectoryBuilder(new Pose2d(pose2d.getX(), pose2d.getY(), Math.toRadians(180)))
-                .lineToLinearHeading(new Pose2d(-51.8, -13.2, Math.toRadians(178)),
+                .lineToLinearHeading(new Pose2d(-52.3, -13.2, Math.toRadians(178)),
                         SampleMecanumDrive.getVelocityConstraint(50, Math.toRadians(15), DriveConstants.TRACK_WIDTH),
                         SampleMecanumDrive.getAccelerationConstraint(30)) //30
                 .build();

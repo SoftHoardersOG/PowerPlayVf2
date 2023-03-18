@@ -5,12 +5,14 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.Autonomous.A;
 import org.firstinspires.ftc.teamcode.Autonomous.B;
 import org.firstinspires.ftc.teamcode.Autonomous.C;
+import org.firstinspires.ftc.teamcode.Autonomous.Tests.AprilTagImageDetection;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoCases;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.ImageDetection;
 import org.firstinspires.ftc.teamcode.Hardware.Hardware;
 import org.firstinspires.ftc.teamcode.Mechanisms.Intake;
 import org.firstinspires.ftc.teamcode.Mechanisms.Place;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.Utils.ActionDelayer;
 
 public class AutoRunTenConeRight implements Runnable {
 
@@ -27,7 +29,7 @@ public class AutoRunTenConeRight implements Runnable {
 
     @Override
     public void run() {
-        switch (ImageDetection.beaconCaseOut) {
+        switch (AprilTagImageDetection.beaconCaseOut) {
             case One:
                 detectedCase = new A();
                 break;
@@ -39,15 +41,16 @@ public class AutoRunTenConeRight implements Runnable {
                 break;
         }
 
-        ImageDetection.camera.stopStreaming();
+        ActionDelayer.time(0, () -> AprilTagImageDetection.camera.stopStreaming());
         intake(sampleMecanumDrive);
-        Hardware.rightSlide.setTargetPosition(-12);
-        Hardware.leftSlide.setTargetPosition(12);
+        Hardware.rightSlide.setTargetPosition(-5);
+        Hardware.leftSlide.setTargetPosition(5);
         Place.highAuto();
-        Hardware.turret.setPosition(0.37);
+        Hardware.turret.setPosition(0.86);
         Intake.currentPosition=5;
         Intake.collect();
         Intake.changeLiftToPosition(-1);
+        Hardware.frontClawAngle.setPosition(-0.03+0.67);
         Place.place();
         opMode.sleep(100);
         Place.close();
@@ -71,10 +74,10 @@ public class AutoRunTenConeRight implements Runnable {
             }
             Intake.open();
             opMode.sleep(130);
-            Hardware.turret.setPosition(0.37);
+            Hardware.turret.setPosition(0.86);
             Intake.collect();
             Intake.changeLiftToPosition(-1);
-            Hardware.frontClawAngle.setPosition(0.65);
+            Hardware.frontClawAngle.setPosition(-0.03+0.70);
             Place.highAuto();
             opMode.sleep(30);
             Place.place();
@@ -103,7 +106,7 @@ public class AutoRunTenConeRight implements Runnable {
         goToSecondStack(sampleMecanumDrive);
 
         Place.highAuto();
-        Hardware.turret.setPosition(0.78);
+        Hardware.turret.setPosition(0.25);
         Intake.currentPosition=5;
         Intake.collect();
         Intake.changeLiftToPosition(-1);
@@ -129,11 +132,11 @@ public class AutoRunTenConeRight implements Runnable {
             }
             Intake.open();
             opMode.sleep(130);
-            Hardware.turret.setPosition(0.78);
+            Hardware.turret.setPosition(0.25);
             if (i <= 4){
                 Intake.collect();
                 Intake.changeLiftToPosition(-1);
-                Hardware.frontClawAngle.setPosition(0.63);
+                Hardware.frontClawAngle.setPosition(-0.03+0.70);
             }
             else{
                 Intake.idle();

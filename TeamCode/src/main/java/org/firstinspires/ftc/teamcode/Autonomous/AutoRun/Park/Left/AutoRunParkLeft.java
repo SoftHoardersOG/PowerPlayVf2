@@ -3,19 +3,14 @@ package org.firstinspires.ftc.teamcode.Autonomous.AutoRun.Park.Left;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Autonomous.A;
-import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveCone.Left.FiveConeLeftTrajectories;
-import org.firstinspires.ftc.teamcode.Autonomous.AutoRun.Park.Right.ParkRightTrajectories;
 import org.firstinspires.ftc.teamcode.Autonomous.B;
 import org.firstinspires.ftc.teamcode.Autonomous.C;
 import org.firstinspires.ftc.teamcode.Autonomous.Tests.AprilTagImageDetection;
 import org.firstinspires.ftc.teamcode.Autonomous.Utils.AutoCases;
-import org.firstinspires.ftc.teamcode.Autonomous.Utils.ImageDetection;
 import org.firstinspires.ftc.teamcode.Hardware.Hardware;
-import org.firstinspires.ftc.teamcode.Mechanisms.Intake;
 import org.firstinspires.ftc.teamcode.Mechanisms.Place;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Utils.ActionDelayer;
-import org.firstinspires.ftc.teamcode.Utils.Potentiometer;
 
 public class AutoRunParkLeft implements Runnable{
     private SampleMecanumDrive sampleMecanumDrive;

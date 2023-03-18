@@ -8,7 +8,7 @@ public class A extends AutoCases {
 
     @Override
     public Pose2d getParkPoseRight() {
-        return new Pose2d(6.5, -13, Math.toRadians(275));
+        return new Pose2d(8, -13, Math.toRadians(278));
     }
 
     @Override

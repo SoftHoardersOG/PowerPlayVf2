@@ -66,7 +66,7 @@ public class AutoRunFiveConeMIDLeft implements Runnable {
         Place.turretToPosition(2);
         Intake.currentPosition = 5;
         Intake.changeLiftToPosition(-1);
-        Hardware.frontClawAngle.setPosition(0.65);
+        Hardware.frontClawAngle.setPosition(-0.03+0.65);
         reposePose = sampleMecanumDrive.getPoseEstimate();
         Hardware.rightSlide.setTargetPosition(-760);
         Hardware.leftSlide.setTargetPosition(760);
@@ -76,7 +76,7 @@ public class AutoRunFiveConeMIDLeft implements Runnable {
                 Hardware.leftSlide.setTargetPosition(760);
             }
             if(i==4 || i==5) {
-                Hardware.frontClawAngle.setPosition(0.66);
+                Hardware.frontClawAngle.setPosition(-0.03+0.66);
                 Hardware.rightSlide.setTargetPosition(-760);
                 Hardware.leftSlide.setTargetPosition(760);
             }
@@ -113,15 +113,15 @@ public class AutoRunFiveConeMIDLeft implements Runnable {
             opMode.sleep(90);
             Place.transfer();
             if (i != 5) {
-                Hardware.frontClawAngle.setPosition(0.67);
+                Hardware.frontClawAngle.setPosition(-0.03+0.67);
                 Intake.changeLiftToPosition(-1);
             }
             if(i ==3 || i==4)
             {
-                Hardware.frontClawAngle.setPosition(0.67);
+                Hardware.frontClawAngle.setPosition(-0.03+0.67);
             }
             if (i==2){
-                Hardware.frontClawAngle.setPosition(0.66);
+                Hardware.frontClawAngle.setPosition(-0.03+0.66);
             }
             opMode.sleep(280);
             Place.low();

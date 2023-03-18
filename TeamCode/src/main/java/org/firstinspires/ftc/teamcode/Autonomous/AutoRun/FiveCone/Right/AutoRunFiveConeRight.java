@@ -44,75 +44,97 @@ public class AutoRunFiveConeRight implements Runnable {
                 detectedCase = new C();
                 break;
         }
-        ActionDelayer.time(0, ()-> AprilTagImageDetection.camera.stopStreaming());
-
+        ActionDelayer.time(0, () -> AprilTagImageDetection.camera.stopStreaming());
         intake(sampleMecanumDrive);
-        Hardware.rightSlide.setTargetPosition(-250);
-        Hardware.leftSlide.setTargetPosition(250);
         Hardware.backClawAngle.setPosition(0.36);
         opMode.sleep(100);
         Place.close();
-        Hardware.turret.setPosition(0.98);
+        Hardware.turret.setPosition(1);//0.98
         opMode.sleep(450);
-        Place.highAutoLeft();
-        opMode.sleep(520);
+        Place.highAutoLeftPreload(); // -215
+        opMode.sleep(720);
         Hardware.backClawAngle.setPosition(0.11);
         opMode.sleep(100);
         Place.open();
         opMode.sleep(100);
         Place.transfer();
+        Hardware.frontClawAngle.setPosition(-0.03+0.67);
+        Intake.currentPosition = 5;
+        Intake.changeLiftToPosition(-1);
         opMode.sleep(340);
         Place.low();
         Place.transfer();
         Place.turretToPosition(2);
-        Intake.currentPosition = 5;
-        Intake.changeLiftToPosition(-1);
-        Hardware.frontClawAngle.setPosition(0.66);
+        Hardware.rightSlide.setTargetPosition(-222);
+        Hardware.leftSlide.setTargetPosition(222);
+        Hardware.frontClawAngle.setPosition(-0.03+0.67);
         for (int i = 1; i <= 5; i++) {
-            if (i > 1) {
-                Hardware.rightSlide.setTargetPosition(-252);
-                Hardware.leftSlide.setTargetPosition(252);
+            if (i == 2) {
+                Hardware.rightSlide.setTargetPosition(-218);
+                Hardware.leftSlide.setTargetPosition(218);
             }
-            if(i==4 || i==5)
-            {
-                Hardware.frontClawAngle.setPosition(0.72);
+            if (i == 3) {
+                Hardware.rightSlide.setTargetPosition(-216);
+                Hardware.leftSlide.setTargetPosition(216);
             }
-            opMode.sleep(350 + i * 10);
+            if (i == 4) {
+                Hardware.frontClawAngle.setPosition(-0.03+0.72);
+                Hardware.rightSlide.setTargetPosition(-214);
+                Hardware.leftSlide.setTargetPosition(214);
+            }
+            if (i == 5) {
+                Hardware.frontClawAngle.setPosition(-0.03+0.72);
+                Hardware.rightSlide.setTargetPosition(-214);
+                Hardware.leftSlide.setTargetPosition(214);
+            }
+            if (i == 1) {
+                opMode.sleep(150);
+            }
+            opMode.sleep(450);
             Intake.close();
-            opMode.sleep(150);
+            opMode.sleep(100);
+            if (i==1){
+                Hardware.rightSlide.setTargetPosition(-211);
+                Hardware.leftSlide.setTargetPosition(211);
+            }
+            else{
+                Hardware.rightSlide.setTargetPosition(-206);
+                Hardware.leftSlide.setTargetPosition(206);
+            }
+            opMode.sleep(50);
             Intake.idle();
-            Hardware.backClawAngle.setPosition(0.92);
+            opMode.sleep(150);
+            Hardware.backClawAngle.setPosition(0.94);
             opMode.sleep(100);
             Intake.liftToPosition(0);
             opMode.sleep(350);
-            Hardware.rightSlide.setTargetPosition(0);
-            Hardware.leftSlide.setTargetPosition(0);
-            opMode.sleep(250);
+            Hardware.rightSlide.setTargetPosition(-10);
+            Hardware.leftSlide.setTargetPosition(10);
+            opMode.sleep(320);
             Intake.transfer();
-            while (!Potentiometer.isFrontArmUp());
-            opMode.sleep(200);
+            opMode.sleep(50);
             Intake.open();
-            opMode.sleep(100);
+            opMode.sleep(250);
             Intake.idle();
             Hardware.backClawAngle.setPosition(0.36);
-            Hardware.turret.setPosition(0.98);
-            opMode.sleep(500);
-            Place.highAutoLeft();
+            Hardware.turret.setPosition(1);///1
+            opMode.sleep(200);
             Place.close();
+            opMode.sleep(300);
+            Place.highAutoLeft();
             opMode.sleep(120);
-            opMode.sleep(400);
+            opMode.sleep(600);
             Hardware.backClawAngle.setPosition(0.08);
             opMode.sleep(200);
             Place.open();
             opMode.sleep(90);
             Place.transfer();
             if (i < 5) {
-                Hardware.frontClawAngle.setPosition(0.71);
+                Hardware.frontClawAngle.setPosition(-0.03+0.71);
                 Intake.changeLiftToPosition(-1);
             }
-            if(i ==3 || i==4)
-            {
-                Hardware.frontClawAngle.setPosition(0.72);
+            if (i == 3 || i == 4) {
+                Hardware.frontClawAngle.setPosition(-0.03+0.72);
             }
             opMode.sleep(280);
             Place.low();
@@ -122,7 +144,7 @@ public class AutoRunFiveConeRight implements Runnable {
     }
 
 
-        public void intake(SampleMecanumDrive drive) {
+    public void intake(SampleMecanumDrive drive) {
         drive.followTrajectory(FiveConeRightTrajectories.IntakeTrajectory(drive.getPoseEstimate()));
         drive.followTrajectory(FiveConeRightTrajectories.IntakeTrajectory2(drive.getPoseEstimate()));
     }

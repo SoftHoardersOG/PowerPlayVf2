@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveCone.Left;
+package org.firstinspires.ftc.teamcode.Autonomous.AutoRun.FiveConeMidJunction.Right;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -13,18 +13,17 @@ import org.firstinspires.ftc.teamcode.Mechanisms.Place;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.Utils.ActionDelayer;
 
-
-public class AutoRunFiveConeLeft implements Runnable {
+public class AutoRunFiveConeMidJunctionRight implements Runnable{
 
     private SampleMecanumDrive sampleMecanumDrive;
     public static AutoCases detectedCase;
     private LinearOpMode opMode;
 
-    public AutoRunFiveConeLeft(SampleMecanumDrive sampleMecanumDrive, LinearOpMode opMode) {
+    public AutoRunFiveConeMidJunctionRight(SampleMecanumDrive sampleMecanumDrive, LinearOpMode opMode) {
         this.sampleMecanumDrive = sampleMecanumDrive;
         this.opMode = opMode;
-        FiveConeLeftTrajectories.setDrive(sampleMecanumDrive);
-        FiveConeLeftTrajectories.InitTrajectories();
+        FiveConeMidJunctionRightTrajectories.setDrive(sampleMecanumDrive);
+        FiveConeMidJunctionRightTrajectories.InitTrajectories();
     }
 
     @Override
@@ -40,14 +39,15 @@ public class AutoRunFiveConeLeft implements Runnable {
                 detectedCase = new C();
                 break;
         }
-        ActionDelayer.time(0, () -> AprilTagImageDetection.camera.stopStreaming());
+        ActionDelayer.time(0, ()->AprilTagImageDetection.camera.stopStreaming());
+
         intake(sampleMecanumDrive);
         Hardware.backClawAngle.setPosition(0.36);
         opMode.sleep(100);
         Place.close();
-        Hardware.turret.setPosition(0.1);//0.98
+        Hardware.turret.setPosition(0.1);
         opMode.sleep(450);
-        Place.highAutoLeftPreload(); // -215
+        Hardware.backSlide.setTargetPosition(-215);
         opMode.sleep(720);
         Hardware.backClawAngle.setPosition(0.11);
         opMode.sleep(100);
@@ -61,39 +61,35 @@ public class AutoRunFiveConeLeft implements Runnable {
         Place.low();
         Place.transfer();
         Place.turretToPosition(2);
-        Hardware.rightSlide.setTargetPosition(-261);
-        Hardware.leftSlide.setTargetPosition(261);
+        Hardware.rightSlide.setTargetPosition(-320);
+        Hardware.leftSlide.setTargetPosition(320);
         Hardware.frontClawAngle.setPosition(-0.03+0.67);
         for (int i = 1; i <= 5; i++) {
-            if (i == 2) {
-                Hardware.rightSlide.setTargetPosition(-254);
-                Hardware.leftSlide.setTargetPosition(254);
+            if (i > 1) {
+                Hardware.rightSlide.setTargetPosition(-318);
+                Hardware.leftSlide.setTargetPosition(318);
             }
             if (i == 3) {
-                Hardware.rightSlide.setTargetPosition(-250);
-                Hardware.leftSlide.setTargetPosition(250);
+                Hardware.rightSlide.setTargetPosition(-321);
+                Hardware.leftSlide.setTargetPosition(321);
             }
             if (i == 4) {
-                Hardware.frontClawAngle.setPosition(-0.03+0.72);
-                Hardware.rightSlide.setTargetPosition(-247);
-                Hardware.leftSlide.setTargetPosition(247);
+                Hardware.frontClawAngle.setPosition(-0.03+0.70);
+                Hardware.rightSlide.setTargetPosition(-325);
+                Hardware.leftSlide.setTargetPosition(325);
             }
             if (i == 5) {
-                Hardware.frontClawAngle.setPosition(-0.03+0.72);
-                Hardware.rightSlide.setTargetPosition(-245);
-                Hardware.leftSlide.setTargetPosition(245);
+                Hardware.frontClawAngle.setPosition(-0.03+0.70);
+                Hardware.rightSlide.setTargetPosition(-328);
+                Hardware.leftSlide.setTargetPosition(328);
             }
             if (i == 1) {
                 opMode.sleep(150);
             }
             opMode.sleep(450);
             Intake.close();
-            opMode.sleep(100);
-            Hardware.rightSlide.setTargetPosition(-245);
-            Hardware.leftSlide.setTargetPosition(245);
-            opMode.sleep(50);
+            opMode.sleep(250);
             Intake.idle();
-            opMode.sleep(100);
             Hardware.backClawAngle.setPosition(0.94);
             opMode.sleep(100);
             Intake.liftToPosition(0);
@@ -104,14 +100,14 @@ public class AutoRunFiveConeLeft implements Runnable {
             Intake.transfer();
             opMode.sleep(50);
             Intake.open();
-            opMode.sleep(250);
+            opMode.sleep(150);
             Intake.idle();
             Hardware.backClawAngle.setPosition(0.36);
-            Hardware.turret.setPosition(0.10);///1
+            Hardware.turret.setPosition(0.1);///1
             opMode.sleep(200);
             Place.close();
-            opMode.sleep(300);
-            Place.highAutoLeft();
+            opMode.sleep(400);
+            Hardware.backSlide.setTargetPosition(-215);
             opMode.sleep(120);
             opMode.sleep(600);
             Hardware.backClawAngle.setPosition(0.08);
@@ -134,13 +130,12 @@ public class AutoRunFiveConeLeft implements Runnable {
     }
 
     public void intake(SampleMecanumDrive drive) {
-        drive.followTrajectory(FiveConeLeftTrajectories.IntakeTrajectory(drive.getPoseEstimate()));
-        drive.followTrajectory(FiveConeLeftTrajectories.IntakeTrajectory2(drive.getPoseEstimate()));
+        drive.followTrajectory(FiveConeMidJunctionRightTrajectories.IntakeTrajectory(drive.getPoseEstimate()));
+        drive.followTrajectory(FiveConeMidJunctionRightTrajectories.IntakeTrajectory2(drive.getPoseEstimate()));
     }
 
-    public void park(SampleMecanumDrive drive) {
-        drive.followTrajectory(FiveConeLeftTrajectories.ParkTrajectory(drive.getPoseEstimate()));
-        drive.followTrajectory(FiveConeLeftTrajectories.ParkTrajectory2(drive.getPoseEstimate()));
+    public void park(SampleMecanumDrive drive){
+        drive.followTrajectory(FiveConeMidJunctionRightTrajectories.ParkTrajectory(drive.getPoseEstimate()));
+        drive.followTrajectory(FiveConeMidJunctionRightTrajectories.ParkTrajectory2(drive.getPoseEstimate()));
     }
-
 }
