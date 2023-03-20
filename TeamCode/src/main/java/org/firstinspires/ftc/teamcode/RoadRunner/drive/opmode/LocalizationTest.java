@@ -4,8 +4,8 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 
+import org.firstinspires.ftc.teamcode.Hardware.Hardware;
 import org.firstinspires.ftc.teamcode.RoadRunner.drive.SampleMecanumDrive;
 
 /**
@@ -22,26 +22,24 @@ public class LocalizationTest extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
         drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
+        drive.setPoseEstimate(new Pose2d(35.75, -63.33, Math.toRadians(270)));
         waitForStart();
 
         while (!isStopRequested()) {
             drive.setWeightedDrivePower(
                     new Pose2d(
-                            -gamepad1.right_stick_y,
-                            -gamepad1.right_stick_x,
-                            -gamepad1.left_stick_x
+                            -gamepad1.left_stick_y,
+                            -gamepad1.left_stick_x,
+                            -gamepad1.right_stick_x
                     )
             );
 
             drive.update();
 
             Pose2d poseEstimate = drive.getPoseEstimate();
-
-            telemetry.addData("encoder front right", hardwareMap.get(DcMotorEx.class, "frontRight").getCurrentPosition());
-            telemetry.addData("encoder back right", hardwareMap.get(DcMotorEx.class, "backRight").getCurrentPosition());
-            telemetry.addData("encoder front left", hardwareMap.get(DcMotorEx.class, "frontLeft").getCurrentPosition());
-            telemetry.addData("encoder back left", hardwareMap.get(DcMotorEx.class, "backLeft").getCurrentPosition());
+            telemetry.addData("left odometer", drive.rightFront.getCurrentPosition());
+            telemetry.addData("right odometer", drive.rightRear.getCurrentPosition());
+            telemetry.addData("perpendicular odometer", drive.leftRear.getCurrentPosition());
             telemetry.addData("x", poseEstimate.getX());
             telemetry.addData("y", poseEstimate.getY());
             telemetry.addData("heading", poseEstimate.getHeading());
