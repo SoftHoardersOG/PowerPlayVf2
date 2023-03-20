@@ -5,5 +5,5 @@ import com.acmerobotics.roadrunner.geometry.Vector2d;
 
 
 public class PoseStorage {
-    public static AutoCase autoCase = AutoCase.FiveConeRight;
+    public static AutoCase autoCase = AutoCase.TenConeRight;
 }

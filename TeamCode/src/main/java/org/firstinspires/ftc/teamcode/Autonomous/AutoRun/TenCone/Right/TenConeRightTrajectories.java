@@ -20,17 +20,17 @@ public class TenConeRightTrajectories {
 
     public static Trajectory IntakeTrajectory(Pose2d pose2d) {
         return drive.trajectoryBuilder(pose2d, true)
-                .lineToLinearHeading(new Pose2d(35.31, -13, Math.toRadians(270)),
-                        SampleMecanumDrive.getVelocityConstraint(80, Math.toRadians(15), DriveConstants.TRACK_WIDTH),
-                        SampleMecanumDrive.getAccelerationConstraint(45)) ///45
+                .lineToLinearHeading(new Pose2d(38, -13, Math.toRadians(270)),
+                        SampleMecanumDrive.getVelocityConstraint(60, Math.toRadians(200), DriveConstants.TRACK_WIDTH),
+                        SampleMecanumDrive.getAccelerationConstraint(35))
                 .build();
     }
 
     public static Trajectory IntakeTrajectory2(Pose2d pose2d) {
         return drive.trajectoryBuilder(pose2d)
-                .lineToLinearHeading(new Pose2d(52.6, -11.5, Math.toRadians(0)),
-                        SampleMecanumDrive.getVelocityConstraint(50, Math.toRadians(200), DriveConstants.TRACK_WIDTH),
-                        SampleMecanumDrive.getAccelerationConstraint(40)) ////50
+                .lineToLinearHeading(new Pose2d(51.8, -12.05, Math.toRadians(-4)),
+                        SampleMecanumDrive.getVelocityConstraint(40, Math.toRadians(200), DriveConstants.TRACK_WIDTH),
+                        SampleMecanumDrive.getAccelerationConstraint(35))
                 .build();
     }
 
@@ -38,7 +38,7 @@ public class TenConeRightTrajectories {
         return drive.trajectoryBuilder(pose2d)
                 .lineToLinearHeading(AutoRunTenConeRight.detectedCase.getParkPoseLeft(),
                         SampleMecanumDrive.getVelocityConstraint(50, Math.toRadians(200), DriveConstants.TRACK_WIDTH),
-                        SampleMecanumDrive.getAccelerationConstraint(50)) ///50
+                        SampleMecanumDrive.getAccelerationConstraint(30)) ///50
                 .build();
     }
 
@@ -52,16 +52,12 @@ public class TenConeRightTrajectories {
 
     public static Trajectory GoToSecondStack(Pose2d pose2d) {
         return drive.trajectoryBuilder(pose2d,true)
-                .lineToLinearHeading(new Pose2d(-29, -11.9, Math.toRadians(-4)),
-                    SampleMecanumDrive.getVelocityConstraint(70, Math.toRadians(15), DriveConstants.TRACK_WIDTH),
-                    SampleMecanumDrive.getAccelerationConstraint(45)) //45
+                .lineToLinearHeading(new Pose2d(-29, -11.9, Math.toRadians(-4)))//45
                 .build();
     }
     public static Trajectory GoToSecondStack2(Pose2d pose2d) {
         return drive.trajectoryBuilder(new Pose2d(pose2d.getX(), pose2d.getY(), Math.toRadians(180)))
-                .lineToLinearHeading(new Pose2d(-52.3, -13.2, Math.toRadians(178)),
-                        SampleMecanumDrive.getVelocityConstraint(50, Math.toRadians(15), DriveConstants.TRACK_WIDTH),
-                        SampleMecanumDrive.getAccelerationConstraint(30)) //30
+                .lineToLinearHeading(new Pose2d(-52.3, -13.2, Math.toRadians(178)))//30
                 .build();
     }
 }

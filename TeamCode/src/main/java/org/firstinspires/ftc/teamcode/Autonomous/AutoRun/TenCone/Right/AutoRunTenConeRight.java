@@ -43,18 +43,18 @@ public class AutoRunTenConeRight implements Runnable {
 
         ActionDelayer.time(0, () -> AprilTagImageDetection.camera.stopStreaming());
         intake(sampleMecanumDrive);
-        Hardware.rightSlide.setTargetPosition(-5);
-        Hardware.leftSlide.setTargetPosition(5);
-        Place.highAuto();
+        Hardware.rightSlide.setTargetPosition(-50);
+        Hardware.leftSlide.setTargetPosition(50);
+        Place.highAutoLeftPreload();
         Hardware.turret.setPosition(0.86);
         Intake.currentPosition=5;
-        Intake.collect();
+        Intake.collectAuto();
         Intake.changeLiftToPosition(-1);
         Hardware.frontClawAngle.setPosition(-0.03+0.67);
         Place.place();
         opMode.sleep(100);
         Place.close();
-        opMode.sleep(520);
+        opMode.sleep(720);
         Place.open();
         opMode.sleep(300);
         Place.low();
@@ -64,6 +64,8 @@ public class AutoRunTenConeRight implements Runnable {
             opMode.sleep(70);
             Intake.close();
             opMode.sleep(130);
+            Hardware.rightSlide.setTargetPosition(-0);
+            Hardware.leftSlide.setTargetPosition(0);
             Intake.transfer();
             Intake.liftToPosition(0);
             if (i==1) {
@@ -75,20 +77,22 @@ public class AutoRunTenConeRight implements Runnable {
             Intake.open();
             opMode.sleep(130);
             Hardware.turret.setPosition(0.86);
-            Intake.collect();
+            Intake.collectAuto();
             Intake.changeLiftToPosition(-1);
             Hardware.frontClawAngle.setPosition(-0.03+0.70);
-            Place.highAuto();
-            opMode.sleep(30);
-            Place.place();
+            Place.highAutoLeftPreload();
+            opMode.sleep(300);
+            Hardware.backClawAngle.setPosition(0.26);
             opMode.sleep(170);
             Place.close();
-            opMode.sleep(440);
+            opMode.sleep(600-270);
             Place.open();
+            Hardware.rightSlide.setTargetPosition(-80);
+            Hardware.leftSlide.setTargetPosition(80);
             opMode.sleep(150);
             Place.transfer();
             Place.turretToPosition(2);
-            opMode.sleep(50);
+            opMode.sleep(150);
             Place.low();
         }
         opMode.sleep(100);
@@ -101,60 +105,60 @@ public class AutoRunTenConeRight implements Runnable {
         opMode.sleep(130);
         Intake.idle();
 
-        Hardware.rightSlide.setTargetPosition(0);
-        Hardware.leftSlide.setTargetPosition(0);
-        goToSecondStack(sampleMecanumDrive);
-
-        Place.highAuto();
-        Hardware.turret.setPosition(0.25);
-        Intake.currentPosition=5;
-        Intake.collect();
-        Intake.changeLiftToPosition(-1);
-        Place.place();
-        opMode.sleep(100);
-        Place.close();
-        opMode.sleep(520);
-        Place.open();
-        opMode.sleep(300);
-        Place.low();
-        Place.transfer();
-        Place.turretToPosition(2);
-        for (int i=1;i<=5;i++) {
-            opMode.sleep(100);
-            Intake.close();
-            opMode.sleep(100);
-            Intake.transfer();
-            Intake.liftToPosition(0);
-            if (i == 1) {
-                opMode.sleep(490);
-            } else {
-                opMode.sleep(530);
-            }
-            Intake.open();
-            opMode.sleep(130);
-            Hardware.turret.setPosition(0.25);
-            if (i <= 4){
-                Intake.collect();
-                Intake.changeLiftToPosition(-1);
-                Hardware.frontClawAngle.setPosition(-0.03+0.70);
-            }
-            else{
-                Intake.idle();
-            }
-            Place.highAuto();
-            opMode.sleep(100);
-            Place.place();
-            opMode.sleep(200);
-            Place.close();
-            opMode.sleep(440);
-            Place.open();
-            opMode.sleep(150);
-            Place.transfer();
-            Place.turretToPosition(2);
-            opMode.sleep(50);
-            Place.low();
-        }
-        park(sampleMecanumDrive);
+//        Hardware.rightSlide.setTargetPosition(0);
+//        Hardware.leftSlide.setTargetPosition(0);
+//        goToSecondStack(sampleMecanumDrive);
+//
+//        Place.highAuto();
+//        Hardware.turret.setPosition(0.25);
+//        Intake.currentPosition=5;
+//        Intake.collect();
+//        Intake.changeLiftToPosition(-1);
+//        Place.place();
+//        opMode.sleep(100);
+//        Place.close();
+//        opMode.sleep(520);
+//        Place.open();
+//        opMode.sleep(300);
+//        Place.low();
+//        Place.transfer();
+//        Place.turretToPosition(2);
+//        for (int i=1;i<=5;i++) {
+//            opMode.sleep(100);
+//            Intake.close();
+//            opMode.sleep(100);
+//            Intake.transfer();
+//            Intake.liftToPosition(0);
+//            if (i == 1) {
+//                opMode.sleep(490);
+//            } else {
+//                opMode.sleep(530);
+//            }
+//            Intake.open();
+//            opMode.sleep(130);
+//            Hardware.turret.setPosition(0.25);
+//            if (i <= 4){
+//                Intake.collect();
+//                Intake.changeLiftToPosition(-1);
+//                Hardware.frontClawAngle.setPosition(-0.03+0.70);
+//            }
+//            else{
+//                Intake.idle();
+//            }
+//            Place.highAuto();
+//            opMode.sleep(100);
+//            Place.place();
+//            opMode.sleep(200);
+//            Place.close();
+//            opMode.sleep(440);
+//            Place.open();
+//            opMode.sleep(150);
+//            Place.transfer();
+//            Place.turretToPosition(2);
+//            opMode.sleep(50);
+//            Place.low();
+//        }
+//        park(sampleMecanumDrive);
     }
 
     public void intake(SampleMecanumDrive drive) {

@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class Place {
     private static final Claw claw = new Claw(Hardware.backClaw, 0.77, 0.69);
-    private static final Arm arm = new Arm(Hardware.backClawAngle, 0.96, 0.33, 0.23,0.27);
+    private static final Arm arm = new Arm(Hardware.backClawAngle, 0.93, 0.30, 0.20,0.24);
     private static final Position turret = new Position(Hardware.turret, new ArrayList<Double>(Arrays.asList(0.00, 0.97, 0.6, 0.48, 0.25, 0.84)));
     private static final BackSlide slide = new BackSlide();
 
