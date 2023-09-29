@@ -5,7 +5,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Hardware;
 public class BackSlide {
     private final int lowPosition = 0;
     private final int midPosition = -225;
-    private final int highPosition = -560;
+    private final int highPosition = -590;
 
     public void goToHigh(){Hardware.backSlide.setTargetPosition(highPosition);}
     public void goToHighAuto(){Hardware.backSlide.setTargetPosition(-525);}

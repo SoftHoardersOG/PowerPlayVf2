@@ -37,7 +37,7 @@ public class Intake {
         if (currentPosition>4){
             currentPosition=4;
         }
-        if (currentPosition==4){
+        if (currentPosition==5){
             Hardware.frontClawAngle.setPosition(-0.038+0.68);
         }
         lift.goToPosition(currentPosition);

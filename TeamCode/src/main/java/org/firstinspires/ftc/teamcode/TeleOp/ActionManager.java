@@ -46,8 +46,8 @@ public class ActionManager {
         frontSlidesMax();
         lowPlace();
         groundPlace();
-        raiseArm();
-        frontLift();
+        //raiseArm();
+        //frontLift();
         //changeTransfer();
         changeCycle();
         checkCollectPose();
