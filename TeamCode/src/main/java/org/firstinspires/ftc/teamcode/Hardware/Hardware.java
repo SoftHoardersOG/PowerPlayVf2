@@ -124,9 +124,6 @@ public class Hardware {
         backSlide.setPower(1);
         rightSlide.setPower(1);
         leftSlide.setPower(1);
-        backSlide.setTargetPosition(0);
-        rightSlide.setTargetPosition(0);
-        leftSlide.setTargetPosition(0);
         MotorConfigurationType motorConfigurationType = backSlide.getMotorType().clone();
         motorConfigurationType.setGearing(5.2);
         motorConfigurationType.setTicksPerRev(145.1);
